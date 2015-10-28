@@ -7,7 +7,7 @@
 
 <code> Hi XXXX! You've successfully authenticated, but GitHub does not provide shell access. </code> 如果出现这个提示，表示你连已经连上了.
 
- - ###### 在github建自己的Repository。
+ - ##### 在github建自己的Repository。
  
  建好后下面有一些代码提示你如何同步，当然先要cd到自己需要同步的目录，然后代码如下：
  
