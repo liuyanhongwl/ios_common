@@ -1,6 +1,7 @@
 ### 目录
 ------
 #### OC 开发
+ * [ios代码实践总结](ios代码实践总结.md) 
  * [内存管理](内存管理.md)
  * [复制对象](复制对象.md)
  * [instancetype & id](instancetype-id.md)
@@ -30,6 +31,7 @@
 
 #### 开发原则
  * [指数退避](指数退避.md)
+ * [设计模式](pattern.md)
  
 
 #### iOS Developer Library
@@ -43,6 +45,7 @@
  
  
 #### 其他技术
+ * [Node.js](node.js.md)
  * [MAC 下终端使用Github](mac_github_terminal.md)
  
  
@@ -51,5 +54,3 @@
  * [自动代理的pac文件](otherfiles/autoproxy/)
  
 
-#### 未完成
- * [ios代码实践总结](ios代码实践总结.md)
