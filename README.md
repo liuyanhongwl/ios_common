@@ -47,10 +47,12 @@
 #### 其他技术
  * [Node.js](node.js.md)
  * [MAC 下终端使用Github](mac_github_terminal.md)
+ * [通信的基础知识](通信的基础知识.md)
  
  
 #### 其他
  * [技术查询网站](skill-search.md)
  * [自动代理的pac文件](otherfiles/autoproxy/)
+
  
 
