@@ -45,7 +45,8 @@
  
  
 #### 其他技术
- * [Node.js](node.js.md)
+ * [nvm 安装配置](nodejs-nvm.md)
+ * [node.js course](nodejs-course.md)
  * [MAC 下终端使用Github](mac_github_terminal.md)
  * [通信的基础知识](通信的基础知识.md)
  

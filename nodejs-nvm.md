@@ -1,5 +1,3 @@
-## node.js 
-
 ### nvm 安装配置
 
 [参考: 快速搭建 Node.js 开发环境以及加速 npm](!https://cnodejs.org/topic/5338c5db7cbade005b023c98)
