@@ -115,3 +115,5 @@ package.json 位于模块的目录下，用于定义包的属性。
 - repository - 包代码存放的地方的类型，可以是 git 或 svn，git 可在 Github 上。
 - main - main 字段是一个模块ID，它是一个指向你程序的主要项目。就是说，如果你包的名字叫 - express，然后用户安装它，然后require("express")。
 - keywords - 关键字
+
+
