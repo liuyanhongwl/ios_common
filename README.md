@@ -49,6 +49,7 @@
  * [node.js course](nodejs-course.md)
  * [MAC 下终端使用Github](mac_github_terminal.md)
  * [通信的基础知识](通信的基础知识.md)
+ * [vimtutor](vimtutor.md)
  
  
 #### 其他
