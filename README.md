@@ -27,6 +27,7 @@
 
 #### Third Party
  * [CocoaPods](cocoapods.md)
+ * [Remove CocoaPods](remove-cocoapods.md)
  * [thirdparty-FMDB](thirdparty-fmdb.md)
 
 #### 开发原则
