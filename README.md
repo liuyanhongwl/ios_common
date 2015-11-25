@@ -6,6 +6,7 @@
  * [复制对象](复制对象.md)
  * [instancetype & id](instancetype-id.md)
  * [Runtime](runtime.md)
+ * [iOS open other app](ios_open_other_app.md)
 
 
 #### OC Foundation
