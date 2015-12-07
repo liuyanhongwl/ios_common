@@ -4,7 +4,7 @@
 ### 1. push原理
 
 iOS push 工作机制可以用下图简要概括
-![push](images/ios_push.jpg)
+![push](../images/ios_push.jpg)
 
 
  - `Provider`:应用自己的服务器；

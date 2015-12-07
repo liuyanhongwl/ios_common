@@ -1,62 +1,67 @@
 ### 目录
 ------
 #### OC 开发
- * [ios代码实践总结](ios代码实践总结.md) 
- * [内存管理](内存管理.md)
- * [复制对象](复制对象.md)
- * [instancetype & id](instancetype-id.md)
- * [Runtime](runtime.md)
- * [iOS open other app](ios_open_other_app.md)
+ * [ios代码实践总结](files/ios代码实践总结.md) 
+ * [内存管理](files/内存管理.md)
+ * [复制对象](files/复制对象.md)
+ * [instancetype & id](files/instancetype-id.md)
+ * [Runtime](files/runtime.md)
+ * [iOS open other app](files/ios_open_other_app.md)
+ * [加密解密](files/encrypt-decrypt.md)
+ * [Background Task](files/background-task.md)  ==============
+ * [Swift和Objective-C混编](files/mix-and-match.md) ==============
 
 
 #### OC Foundation
- * [OC(数据、字符串)](oc（关于数据、字符串）.md)
+ * [OC(数据、字符串)](files/oc（关于数据、字符串）.md)
  
  
 #### OC UIKit
- * [UITableView性能优化](uitableview性能优化.md)
- * [OC(Image)](oc_image.md)
- * [OC操作](oc_operation.md)
+ * [UITableView性能优化](files/uitableview性能优化.md)
+ * [OC(Image)](files/oc_image.md)
+ * [OC操作](files/oc_operation.md)
 
 
 #### Audio & Video
- * [OC获取权限](oc_get_authorization.md)
+ * [OC获取权限](files/oc_get_authorization.md)
  
 #### Media Layer
- * [Photos.framework](oc-photos-framework.md)
- * [PhotoKit & ALAssetLibrary](oc-photokit-alassetlibrary.md)
+ * [Photos.framework](files/oc-photos-framework.md)
+ * [PhotoKit & ALAssetLibrary](files/oc-photokit-alassetlibrary.md)
 
 #### Third Party
- * [CocoaPods](cocoapods.md)
- * [Remove CocoaPods](remove-cocoapods.md)
- * [thirdparty-FMDB](thirdparty-fmdb.md)
+ * [CocoaPods](files/cocoapods.md)
+ * [Remove CocoaPods](files/remove-cocoapods.md)
+ * [使用Cocoapods创建私有podspec](files/cocoapods-podspec.md) ===========
+ * [thirdparty-FMDB](files/thirdparty-fmdb.md)
+ * [AFNetwork](files/thridparty-afnetwork.md)
 
 #### 开发原则
- * [指数退避](指数退避.md)
- * [设计模式](pattern.md)
+ * [指数退避](files/指数退避.md)
+ * [设计模式](files/pattern.md)   ==============
  
 
 #### iOS Developer Library
- * [iOS9新增功能](ios_developer_library_--_ios9.md)
+ * [iOS9新增功能](files/ios_developer_library_--_ios9.md)
 
 
 #### XCODE 开发其他流程
- * [iOS打包与证书](ios打包与证书制作.md)
- * [IOS PUSH SSL证书的制作过程](ios_push_ssl.md)
- * [iOS上线注意事项](线上发包审核.md)
+ * [iOS打包与证书](files/ios打包与证书制作.md)
+ * [IOS PUSH SSL证书的制作过程](files/ios_push_ssl.md)
+ * [iOS上线注意事项](files/线上发包审核.md)
  
  
 #### 其他技术
- * [nvm 安装配置](nodejs-nvm.md)
- * [node.js course](nodejs-course.md)
- * [MAC 下终端使用Github](mac_github_terminal.md)
- * [通信的基础知识](通信的基础知识.md)
- * [vimtutor](vimtutor.md)
+ * [nvm 安装配置](files/nodejs-nvm.md)
+ * [node.js course](files/nodejs-course.md)     ==============
+ * [MAC 下终端使用Github](files/mac_github_terminal.md) 
+ * [通信的基础知识](files/通信的基础知识.md)
+ * [vimtutor](files/vimtutor.md)   ==============
  
  
 #### 其他
- * [技术查询网站](skill-search.md)
+ * [技术查询网站](files/skill-search.md)
  * [自动代理的pac文件](otherfiles/autoproxy/)
-
  
+
 

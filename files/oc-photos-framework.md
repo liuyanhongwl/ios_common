@@ -28,7 +28,7 @@ PhotoKit 相对 AssetsLibrary 主要有三点重要的改进：
 
 额外概念 PHCollectionList ：    <br>
 表示一组 PHCollection，它本身也是一个 PHCollection，因此 PHCollection 作为一个集合，可以包含其他集合，这使到 PhotoKit 的组成比 ALAssetLibrary 要复杂一些。另外与 ALAssetLibrary 相似，一个 PHAsset 可以同时属于多个不同的 PHAssetCollection，最常见的例子就是刚刚拍摄的照片，至少同时属于“最近添加”、“相机胶卷”以及“照片 - 精选”这三个 PHAssetCollection。关于这几个概念的关系如下图：
-![ios8-photo-kit](images/ios8-photo-kit.png)
+![ios8-photo-kit](../images/ios8-photo-kit.png)
 
 #### 二. PhotoKit 的机制
 

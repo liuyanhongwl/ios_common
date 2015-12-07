@@ -1,11 +1,7 @@
 ### OC（关于数据、字符串）
 
 -----
-#### URL 中有汉字：
 
-```
-[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-```
 
 #### NSJSONSerializationw
 
