@@ -10,6 +10,7 @@
  * [加密解密](files/encrypt-decrypt.md)
  * [Background Task](files/background-task.md)  ==============
  * [Swift和Objective-C混编](files/mix-and-match.md) ==============
+ * [显示苹果广告](files/ios-iad.md) ==========
 
 
 #### OC Foundation
@@ -18,8 +19,10 @@
  
 #### OC UIKit
  * [UITableView性能优化](files/uitableview性能优化.md)
+ * [UITableView各种问题](files/uitableview.md)
  * [OC(Image)](files/oc_image.md)
  * [OC操作](files/oc_operation.md)
+ * [计算UILabel的高度](files/uilabel-height.md)
 
 
 #### Audio & Video
@@ -49,6 +52,7 @@
  * [iOS打包与证书](files/ios打包与证书制作.md)
  * [IOS PUSH SSL证书的制作过程](files/ios_push_ssl.md)
  * [iOS上线注意事项](files/线上发包审核.md)
+ * [iOS项目目录](files/ios_project_directory.md)
  
  
 #### 其他技术

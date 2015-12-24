@@ -9,3 +9,8 @@
 5. 向私有的Spec Repo中提交podspec。
 6. 在个人项目中的Podfile中增加刚刚制作的好的Pod并使用。
 7. 更新维护podspec。
+
+遇到的问题：
+
+1. pod lib lint 时要加上需要的sources
+2. `$ pod repo push WTSpecs PodTestLibrary.podspec` 时也需要加上需要的sources  
