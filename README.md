@@ -15,6 +15,8 @@
 
 #### OC Foundation
  * [OC(数据、字符串)](files/oc（关于数据、字符串）.md)
+ * [NSException](files/ios_nsexception.md)
+ * [NSNotification](files/ios_nsnotification.md)
  
  
 #### OC UIKit
@@ -23,6 +25,7 @@
  * [OC(Image)](files/oc_image.md)
  * [OC操作](files/oc_operation.md)
  * [计算UILabel的高度](files/uilabel-height.md)
+ * [UIScrollView](files/ios_uiscrollview.md)
 
 
 #### Audio & Video

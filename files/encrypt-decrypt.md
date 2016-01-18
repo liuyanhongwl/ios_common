@@ -105,6 +105,8 @@
 
 ##### URL 中有汉字：
 
+- url编码
+
 ```
 [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
@@ -114,6 +116,22 @@
 
 ```
 [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+
+```
+
+- url解码
+
+请求后，返回的数据，如何显示的是这样的格式：%3A%2F%2F，此时需要我们进行UTF-8解码，用到的方法是：
+
+```
+[urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+```
+
+上面的方法iOS9过时，用下面代替
+
+```
+[]urlString stringByRemovingPercentEncoding];
 
 ```
 
