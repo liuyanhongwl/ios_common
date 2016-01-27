@@ -88,6 +88,69 @@ git add <filename>
 在合并改动之前，也可以使用如下命令查看：
 git diff <source_branch> <target_branch>
 
+**有个主分支master, 两个分支branch1和branch2, 合并时：**
+
+##### 1. merge合并
+
+执行fast-forward（快进）合并。
+
+* 切换到master，合并branch1  
+
+```
+git checkout master
+git merge branch1
+```
+* 接着合并branch2
+
+```
+git merge branch2
+```
+
+* 上步骤可能会有冲突，解决冲突后，重新提交
+
+```
+git add .
+git commit -a -m 'commit test'
+
+```
+
+
+
+##### 2. rebase合并
+
+合并branch2分支的时候，使用rebase可以使提交的历史记录显得更简洁。
+
+* 取消刚才的合并（上步骤用 merge 合并branch2）
+
+```
+$ git reset --hard HEAD~
+```
+
+* 切换到issue3分支后，对master执行rebase。
+
+```
+$ git checkout branch2
+$ git rebase master
+
+```
+* 和merge时的操作相同，修改在发生冲突的部分。
+
+* rebase的时候，修改冲突后的提交不是使用commit命令，而是执行rebase命令指定 --continue选项。若要取消rebase，指定 --abort选项。
+
+```
+$ git add .
+$ git rebase --continue
+```
+
+* 这样，在master分支的issue3分支就可以fast-forward合并了。切换到master分支后执行合并。
+
+```
+$ git checkout master
+$ git merge branch2
+```
+
+
+
 #### 替换本地改动
 
 假如你做错事（自然，这是不可能的），你可以使用如下命令替换掉本地改动：
