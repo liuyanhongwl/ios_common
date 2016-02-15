@@ -26,6 +26,8 @@
  * [OC操作](files/oc_operation.md)
  * [计算UILabel的高度](files/uilabel-height.md)
  * [UIScrollView](files/ios_uiscrollview.md)
+ * [AutoLayout](files/autolayout.md)
+ * [UINavigationController](files/uinavigationcontroller.md)
 
 
 #### Audio & Video

@@ -73,6 +73,17 @@ git branch -d feature_x
 - 除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：
 git push origin <branch>
 
+#### 删除远程分支
+如果不再需要某个远程分支了，比如搞定了某个特性并把它合并进了远程的 master 分支（或任何其他存放稳定代码的分支），可以用这个非常无厘头的语法来删除它：**git push [远程名] :[分支名]**。如果想在服务器上删除 serverfix 分支，运行下面的命令：
+
+```
+$ git push origin :serverfix
+To git@github.com:schacon/simplegit.git
+ - [deleted]         serverfix 
+ 
+ ```
+咚！服务器上的分支没了。你最好特别留心这一页，因为你一定会用到那个命令，而且你很可能会忘掉它的语法。有种方便记忆这条命令的方法：记住我们不久前见过的 **git push [远程名] [本地分支]:[远程分支]** 语法，如果省略 [本地分支]，那就等于是在说“在这里提取空白然后把它变成[远程分支]”。
+
 #### 更新与合并
 
 - 要更新你的本地仓库至最新改动，执行：
@@ -149,7 +160,11 @@ $ git checkout master
 $ git merge branch2
 ```
 
+#### 强制覆盖
 
+```
+git push --force
+```
 
 #### 替换本地改动
 
