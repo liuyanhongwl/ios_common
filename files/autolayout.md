@@ -37,3 +37,15 @@ Content Compression Resistance就是要维持当前view在他的optimal size（i
 view.width >= optimal size
 
 此默认优先级为750.
+
+
+### ios7 crash
+
+* iOS7 使用sizeToFit方法时，要注意有没有使用约束。（可能会有冲突，从而crash）
+
+
+### 问题
+
+* daily 页面图片预加载问题 是有做预加载，但是不能保证期间图片全部加载下来。
+* 因为前端video web url拼接方式发生了变化。
+* ftp ios 1. 格式。 2. 存个debug包。

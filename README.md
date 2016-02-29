@@ -17,7 +17,7 @@
  * [OC(数据、字符串)](files/oc（关于数据、字符串）.md)
  * [NSException](files/ios_nsexception.md)
  * [NSNotification](files/ios_nsnotification.md)
- 
+ * [Local/Remote Notification](files/ios-local-remote-notification.md)
  
 #### OC UIKit
  * [UITableView性能优化](files/uitableview性能优化.md)
@@ -43,10 +43,14 @@
  * [使用Cocoapods创建私有podspec](files/cocoapods-podspec.md) ===========
  * [thirdparty-FMDB](files/thirdparty-fmdb.md)
  * [AFNetwork](files/thridparty-afnetwork.md)
+ 
+#### Swift
+ * [特点](files/swift-feature.md)
 
 #### 开发原则
  * [指数退避](files/指数退避.md)
  * [设计模式](files/pattern.md)   ==============
+ * [链式编程思想](files/chained.md)
  
 
 #### iOS Developer Library

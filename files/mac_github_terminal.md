@@ -169,12 +169,30 @@ git push --force
 #### 替换本地改动
 
 假如你做错事（自然，这是不可能的），你可以使用如下命令替换掉本地改动：
+
+```
 git checkout -- <filename>
+```
+
 此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到缓存区的改动，以及新文件，都不受影响。
 
 假如你想要丢弃你所有的本地改动与提交，可以到服务器上获取最新的版本并将你本地主分支指向到它：
 git fetch origin   
 git reset --hard origin/master
+
+#### Tag
+
+list the tags
+
+```
+$ git tag -l
+```
+
+checkout a specific tag
+
+```
+$ git checkout tags/<tag_name>
+```
 
 -----
 ### 常用命令

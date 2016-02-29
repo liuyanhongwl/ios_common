@@ -12,3 +12,6 @@ UIApplicationDidBecomeActiveNotification
 ```
 
 官方例子中是在viewWillAppear的时候添加，viewWillDisappear的时候remove。
+
+
+
