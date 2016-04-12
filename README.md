@@ -9,8 +9,8 @@
  * [iOS open other app](files/ios_open_other_app.md)
  * [加密解密](files/encrypt-decrypt.md)
  * [Background Task](files/background-task.md)  ==============
- * [Swift和Objective-C混编](files/mix-and-match.md) ==============
  * [显示苹果广告](files/ios-iad.md) ==========
+ * [事件的传递](files/事件的传递.md)
 
 
 #### OC Foundation
@@ -28,6 +28,7 @@
  * [UIScrollView](files/ios_uiscrollview.md)
  * [AutoLayout](files/autolayout.md)
  * [UINavigationController](files/uinavigationcontroller.md)
+ * [有关UIView绘制](files/ios-uiview-layout.md)
 
 
 #### Audio & Video
@@ -45,6 +46,7 @@
  * [AFNetwork](files/thridparty-afnetwork.md)
  
 #### Swift
+ * [Swift和Objective-C混编](files/mix-and-match.md) ==============
  * [特点](files/swift-feature.md)
 
 #### 开发原则
