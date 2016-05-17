@@ -44,6 +44,7 @@
  * [使用Cocoapods创建私有podspec](files/cocoapods-podspec.md) ===========
  * [thirdparty-FMDB](files/thirdparty-fmdb.md)
  * [AFNetwork](files/thridparty-afnetwork.md)
+ * [Google Cloud Message](files/google_cloud_message.md)
  
 #### Swift
  * [Swift和Objective-C混编](files/mix-and-match.md) ==============
