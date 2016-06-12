@@ -72,3 +72,18 @@ self.navigationItem.title = @"二级页面"
 
 上面代码的意思是，在将要push进入二级页面时，设置一级页面的backBarButtonItem。
 
+
+### iOS返回侧滑手势
+
+#### 问题： 页面有横向滚动的UIScrollView，scrollView的手势覆盖了页面返回手势，使得页面无法手势返回。
+
+**思路**: 我们既然不想同时响应侧滑和 scrollView 的滑动事件，那么我要要做的就是让 scrollView 在侧滑手势判定为失败后再响应滚动事件。
+
+
+
+```
+if (self.navigationController.interactivePopGestureRecognizer) {
+        [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+    }
+```
+
