@@ -87,3 +87,30 @@ if (self.navigationController.interactivePopGestureRecognizer) {
     }
 ```
 
+### iOS7侧滑手势的Bug
+
+#### 问题： 页面push的时候，瞬间侧滑，则会有两个效果同时生效，造成页面布局混乱。
+
+**解决**： 
+
+1.在UINavigationController Push的时候， 取消侧滑手势。
+
+```
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    self.interactivePopGestureRecognizer.enabled = NO;
+    
+    [super pushViewController:viewController animated:animated];
+}
+```
+
+2.Push结束的时候，再打开侧滑手势。注意：若是当前只有rootViewController的话，就关闭侧滑手势。
+
+```
+self.interactivePopGestureRecognizer.enabled = YES;
+if (navigationController.viewControllers.count == 1) {
+	self.interactivePopGestureRecognizer.enabled = NO;
+}
+```
+
+

@@ -118,3 +118,14 @@ completionHandler:(void(^)())completionHandler {
 
 }
 ```
+
+
+### 用户手动滑kill掉应用时
+
+>Also keep in mind that if you kill your app from the app switcher (i.e. swiping up to kill the app) then the OS will never relaunch the app regardless of push notification or background fetch. In this case the user has to manually relaunch the app once and then from that point forward the background activities will be invoked.
+
+That post was by an Apple employee so I think i can trust that this information is correct.
+
+So it looks like when the app is killed from the app switcher (by swiping up), the app will never be launched, even for scheduled background fetches.
+
+
