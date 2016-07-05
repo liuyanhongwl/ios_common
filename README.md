@@ -12,6 +12,7 @@
  * [Background Task](files/background-task.md)  ==============
  * [显示苹果广告](files/ios-iad.md) ==========
  * [事件的传递](files/事件的传递.md)
+ * [URL Scheme](files/url_scheme.md)
 
 
 #### OC Foundation
