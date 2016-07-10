@@ -7,6 +7,7 @@
  * [复制对象](files/复制对象.md)
  * [instancetype & id](files/instancetype-id.md)
  * [Runtime](files/runtime.md)
+ * [Runtime(2)](files/runtime_2.md)
  * [iOS open other app](files/ios_open_other_app.md)
  * [加密解密](files/encrypt-decrypt.md)
  * [Background Task](files/background-task.md)  ==============
@@ -21,6 +22,7 @@
  * [NSNotification](files/ios_nsnotification.md)
  * [Local/Remote Notification](files/ios-local-remote-notification.md)
  
+ 
 #### OC UIKit
  * [UIApplication](files/ios-uiapplication.md)
  * [UITableView性能优化](files/uitableview性能优化.md)
@@ -32,14 +34,20 @@
  * [AutoLayout](files/autolayout.md)
  * [UINavigationController](files/uinavigationcontroller.md)
  * [有关UIView绘制](files/ios-uiview-layout.md)
+ 
 
+#### Core Animation
+ * [Core Animation](files/core_animation.md)
+ 
 
 #### Audio & Video
  * [OC获取权限](files/oc_get_authorization.md)
  
+ 
 #### Media Layer
  * [Photos.framework](files/oc-photos-framework.md)
  * [PhotoKit & ALAssetLibrary](files/oc-photokit-alassetlibrary.md)
+ 
 
 #### Third Party
  * [CocoaPods](files/cocoapods.md)
@@ -49,9 +57,11 @@
  * [AFNetwork](files/thridparty-afnetwork.md)
  * [Google Cloud Message](files/google_cloud_message.md)
  
+ 
 #### Swift
  * [Swift和Objective-C混编](files/mix-and-match.md) ==============
  * [特点](files/swift-feature.md)
+ 
 
 #### 开发原则
  * [指数退避](files/指数退避.md)
@@ -73,9 +83,10 @@
 #### 其他技术
  * [nvm 安装配置](files/nodejs-nvm.md)
  * [node.js course](files/nodejs-course.md)     ==============
- * [MAC 下终端使用Github](files/mac_github_terminal.md) 
+ * [MAC 下终端使用Github](files/mac_git_terminal.md) 
  * [通信的基础知识](files/通信的基础知识.md)
  * [vimtutor](files/vimtutor.md)   ==============
+ * [GitHub](files/github.md)
  
  
 #### 其他
