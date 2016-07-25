@@ -11,7 +11,7 @@
 
 为工程创建一个Today Extension : File -> New -> Target -> Application Extension -> Today Extension, 点击 Finish 就完成了 Today Extension的添加。 目录结构如下：
 
-![1-1](../images/TodayExtension/1-1.png =240x)
+![1-1](../images/TodayExtension/1-1.png)
 
 MainInterface.storyboard 里的 TodayViewController 即是插件的入口。真实的大小不能在 IB 里修改。
 
