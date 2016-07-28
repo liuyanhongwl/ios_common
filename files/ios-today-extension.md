@@ -11,7 +11,7 @@
 
 为工程创建一个Today Extension : File -> New -> Target -> Application Extension -> Today Extension, 点击 Finish 就完成了 Today Extension的添加。 目录结构如下：
 
-![1-1](../images/TodayExtension/1-1.png)
+<img src="../images/TodayExtension/1-1.png" width="300">
 
 MainInterface.storyboard 里的 TodayViewController 即是插件的入口。真实的大小不能在 IB 里修改。
 
@@ -93,7 +93,7 @@ Today Extension 里面的 View Controller 遵守 NCWidgetProviding 协议。
 
 4.调试 Today Extension，选中 Today Extension 的 Scheme
 
-![](../images/TodayExtension/2-2.png)
+<img src="../images/TodayExtension/2-2.png" width="400"/>
 
 ## 今日面板调起主程序并执行操作。
 
@@ -125,7 +125,26 @@ Today Extension 里面的 View Controller 遵守 NCWidgetProviding 协议。
 
 **一个小提醒**
 
-由于通知中心的界面是一大块 UIVisualEffectView ，并且具体参数调整过，所以插件的背景色最好保持透明，主要文字颜色最好是白色，次要文字的颜色最好是 lightTextColor，这样能适应毛玻璃下的 Vibrancy 效果。
+- 由于通知中心的界面是一大块 UIVisualEffectView ，并且具体参数调整过，所以插件的背景色最好保持透明，主要文字颜色最好是白色，次要文字的颜色最好是 lightTextColor，这样能适应毛玻璃下的 Vibrancy 效果。
+
+- 当在通知中心使用 Table View Cell 时， 背景默认透明， 点击 Cell 透明部分无响应。 
+
+<img src="../images/TodayExtension/10-1.png" width="300"/>
+
+如上图所示， Cell 的可以响应区域只有红色界面元素部分。 **透明的背景部分**无响应， 即使使用`didSelectRowAtIndexPath:` `UIGestureRecognizer` `touchesBegan:` 等方法， 也无响应。 若背景不透明则有响应。
+
+解决方法： 在 Cell 内添加一个透明的 Label 充满全 Cell。
+
+```
+UILabel *fill = [[UILabel alloc] init];
+[self.contentView addSubview:fill];
+[fill mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.leading.mas_equalTo(weakSelf.contentView);
+    make.trailing.mas_equalTo(weakSelf.contentView);
+    make.top.mas_equalTo(weakSelf.contentView);
+    make.bottom.mas_equalTo(weakSelf.contentView);
+}];
+```
 
 
 ## 共用代码
