@@ -91,6 +91,7 @@
  * [通信的基础知识](files/通信的基础知识.md)
  * [vimtutor](files/vimtutor.md)   ==============
  * [GitHub](files/github.md)
+ * [更新缓存的设计模式](files/更新缓存的设计模式.md)
  
  
 #### 其他
