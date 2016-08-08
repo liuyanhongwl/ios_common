@@ -1,4 +1,5 @@
 
+
 ### 目录
 ------
 #### OC 开发
@@ -66,10 +67,13 @@
  * [Swift和Objective-C混编](files/mix-and-match.md) ==============
  * [特点](files/swift-feature.md)
  
+#### App Store
+
+ * [App Store 上线错误](files/appstore_upload_error.md)
 
 #### 开发原则
  * [指数退避](files/指数退避.md)
- * [设计模式](files/pattern.md)   ==============
+ * [设计模式--《HEAD FIRST》](files/pattern-head-first.md)   ==============
  * [链式编程思想](files/chained.md)
  
 

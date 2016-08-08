@@ -1,4 +1,4 @@
-## 设计模式
+## 设计模式--《HEAD FIRST》
 
 参考 《Head First 设计模式》
 
