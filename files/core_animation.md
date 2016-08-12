@@ -419,5 +419,110 @@ CATransition响应CAAction协议，并且可以当做一个图层行为:
 - 如果你在实现一个基于定时器的动画（见第11章“基于定时器的动画”），而不仅仅是基于事务的动画，这个时候准确地知道在某一时刻图层显示在什么位置就会对正确摆放图层很有用了。
 - 如果你想让你做动画的图层响应用户输入，你可以使用-hitTest:方法（见第三章“图层几何学”）来判断指定图层是否被触摸，这时候对呈现图层而不是模型图层调用-hitTest:会显得更有意义，因为呈现图层代表了用户当前看到的图层位置，而不是当前动画结束之后的位置。
 
+### 8. 显式动画
 
+#### 8.1 属性动画
 
+- `CAPropertyAnimation`
+
+- `CABasicAnimation`
+
+- 关键帧动画： `CAKeyframeAnimation`， 它依然作用于单一的一个属性，但是和CABasicAnimation不一样的是，它不限制于设置一个起始和结束的值，而是可以根据一连串随意的值来做动画。
+- - `values`
+- - `path`
+- - `rotationMode` : 设置它为常量kCAAnimationRotateAuto，图层将会根据曲线的切线自动旋转
+
+**虚拟属性**： 
+
+`transform.rotation`
+
+`transform.position`
+
+`transform.scale`
+
+用transform.rotation而不是transform做动画的好处如下：
+
+- 我们可以不通过关键帧一步旋转多于180度的动画。
+- 可以用相对值而不是绝对值旋转（设置byValue而不是toValue）。
+- 可以不用创建CATransform3D，而是使用一个简单的数值来指定角度。
+- 不会和transform.position或者transform.scale冲突（同样是使用关键路径来做独立的动画属性）。
+
+transform.rotation属性有一个奇怪的问题是它其实并不存在。这是因为CATransform3D并不是一个对象，它实际上是一个结构体，也没有符合KVC相关属性，transform.rotation实际上是一个CALayer用于处理动画变换的**虚拟属性**。
+
+**CAValueFunction**:
+
+当你对虚拟属性做动画时，Core Animation自动地根据通过CAValueFunction来计算的值来更新transform属性。
+
+CAValueFunction用于把我们赋给虚拟的transform.rotation简单浮点值转换成真正的用于摆放图层的CATransform3D矩阵值。你可以通过设置CAAnimation的valueFunction属性来改变，于是你设置的函数将会覆盖默认的函数。
+
+CAValueFunction看起来似乎是对那些不能简单相加的属性（例如变换矩阵）做动画的非常有用的机制，但由于CAValueFunction的实现细节是私有的，所以目前不能通过继承它来自定义。你可以通过使用苹果目前已经提供的常量（目前都是和变换矩阵的虚拟属性相关，所以没太多使用场景了，因为这些属性都有了默认的实现方式）。
+
+#### 8.2 动画组
+
+CABasicAnimation和CAKeyframeAnimation仅仅作用于单独的属性，而CAAnimationGroup可以把这些动画组合在一起。CAAnimationGroup是另一个继承于CAAnimation的子类，它添加了一个animations数组的属性，用来组合别的动画。
+
+#### 8.3 过渡
+
+过渡动画首先展示之前的图层外观，然后通过一个交换过渡到新的外观。
+
+**CATransition** 
+
+- `type` ：
+
+```
+kCATransitionFade 
+kCATransitionMoveIn 
+kCATransitionPush 
+kCATransitionReveal
+```
+- `subtype` ：
+
+```
+kCATransitionFade 
+kCATransitionMoveIn 
+kCATransitionPush 
+kCATransitionReveal
+```
+
+要确保CATransition添加到的图层在过渡动画发生时不会在树状结构中被移除，否则CATransition将会和图层一起被移除。一般来说，你只需要将动画添加到被影响图层的superlayer。
+
+**UIView的过渡** 
+
+`+transitionFromView:toView:duration:options:completion:`
+
+`+transitionWithView:duration:options:animations:`
+
+方法提供了Core Animation的过渡特性。但是这里的可用的过渡选项和CATransition的type属性提供的常量完全不同。UIView过渡方法中options参数可以由如下常量指定：
+
+```
+UIViewAnimationOptionTransitionNone    
+UIViewAnimationOptionTransitionFlipFromLeft
+UIViewAnimationOptionTransitionFlipFromRight
+UIViewAnimationOptionTransitionCurlUp          
+UIViewAnimationOptionTransitionCurlDown        
+UIViewAnimationOptionTransitionCrossDissolve   
+UIViewAnimationOptionTransitionFlipFromTop     
+UIViewAnimationOptionTransitionFlipFromBottom
+```
+
+**自定义过渡动画**
+
+若是上述过渡效果都不是想要的话，可以使用截图的方式做过渡动画。
+
+获取图层外观截图 ：CALayer有一个-renderInContext:方法，可以通过把它绘制到Core Graphics的上下文中捕获当前内容的图片
+
+```
+UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, YES, 0.0);
+[self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+UIImage *coverImage = UIGraphicsGetImageFromCurrentImageContext();
+```
+
+#### 8.4 在动画过程中取消动画
+
+`- (void)removeAnimationForKey:(NSString *)key;`
+
+`- (void)removeAllAnimations;`
+
+动画一旦被移除，图层的外观就立刻更新到当前的模型图层的值。
+
+一般说来，动画在结束之后被自动移除，除非设置`removedOnCompletion`为NO，如果你设置动画在结束之后不被自动移除，那么当它不需要的时候你要手动移除它；否则它会一直存在于内存中，直到图层被销毁。

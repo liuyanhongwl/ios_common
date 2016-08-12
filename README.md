@@ -86,6 +86,7 @@
  * [IOS PUSH SSL证书的制作过程](files/ios_push_ssl.md)
  * [iOS上线注意事项](files/线上发包审核.md)
  * [iOS项目目录](files/ios_project_directory.md)
+ * [命令行运行xcode项目](files/命令行运行xcode项目.md)
  
  
 #### 其他技术
