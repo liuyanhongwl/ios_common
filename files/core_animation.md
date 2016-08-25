@@ -526,3 +526,127 @@ UIImage *coverImage = UIGraphicsGetImageFromCurrentImageContext();
 动画一旦被移除，图层的外观就立刻更新到当前的模型图层的值。
 
 一般说来，动画在结束之后被自动移除，除非设置`removedOnCompletion`为NO，如果你设置动画在结束之后不被自动移除，那么当它不需要的时候你要手动移除它；否则它会一直存在于内存中，直到图层被销毁。
+
+### 9. 图层时间
+
+#### 9.1  CAMediaTiming 协议
+
+CAMediaTiming协议定义了在一段动画内用来控制逝去时间的属性的集合，CALayer和CAAnimation都实现了这个协议，所以时间可以被任意基于一个图层或者一段动画的类控制。
+
+`duration` : 对将要进行的动画的一次迭代指定了时间
+
+`repeatCount` : 动画重复的迭代次数
+
+`repeatDuration` 
+
+`autoreverses`
+
+**相对时间**
+
+`beginTime` : 指定了动画开始之前的的延迟时间
+
+`speed` : 是一个时间的倍数，默认1.0，增加它会减慢图层/动画的时间，增加它会加快速度。如果2.0的速度，那么对于一个duration为1的动画，实际上在0.5秒的时候就已经完成了。
+
+`timeOffset` : 让动画快进到某一点，例如，对于一个持续1秒的动画来说，设置timeOffset为0.5意味着动画将从一半的地方开始。和beginTime不同的是，timeOffset并不受speed的影响。
+
+**fillMode**
+
+对于beginTime非0的一段动画来说，会出现一个当动画添加到图层上但什么也没发生的状态。类似的，removeOnCompletion被设置为NO的动画将会在动画结束的时候仍然保持之前的状态。这就产生了一个问题，当动画开始之前和动画结束之后，被设置动画的属性将会是什么值呢？
+
+```
+kCAFillModeForwards 
+kCAFillModeBackwards 
+kCAFillModeBoth 
+kCAFillModeRemoved
+```
+
+#### 9.2 层级关系时间
+
+在第三章“图层几何学”中，你已经了解到每个图层是如何相对在图层树中的父图层定义它的坐标系的。动画时间和它类似，每个动画和图层在时间上都有它自己的层级概念，相对于它的父亲来测量。对图层调整时间将会影响到它本身和子图层的动画，但不会影响到父图层。
+
+对CALayer或者CAGroupAnimation调整duration和repeatCount/repeatDuration属性并不会影响到子动画。但是beginTime，timeOffset和speed属性将会影响到子动画。
+
+每个CALayer和CAAnimation实例都有自己本地时间的概念，是根据父图层/动画层级关系中的beginTime，timeOffset和speed属性计算。就和转换不同图层之间坐标关系一样，CALayer同样也提供了方法来转换不同图层之间的本地时间。如下：
+
+
+```
+- (CFTimeInterval)convertTime:(CFTimeInterval)t fromLayer:(CALayer *)l; 
+- (CFTimeInterval)convertTime:(CFTimeInterval)t toLayer:(CALayer *)l;
+```
+**暂停，倒回和快进**
+
+1.设置动画的speed属性
+
+不好实现：
+
+动画被添加到图层之后不太可能再修改它了，所以不能对正在进行的动画使用这个属性。给图层添加一个CAAnimation实际上是给动画对象做了一个不可改变的拷贝，所以对原始动画对象属性的改变对真实的动画并没有作用。相反，直接用-animationForKey:来检索图层正在进行的动画可以返回正确的动画对象，但是修改它的属性将会抛出异常。
+
+2.设置图层的speed属性
+
+可以实现：
+
+如果把图层的speed设置成0，它会暂停任何添加到图层上的动画。类似的，设置speed大于1.0将会快进，设置成一个负值将会倒回动画。
+
+3.扩展
+
+有利于UI自动化测试，通过增加主窗口图层的speed，可以控制整个应用程序的动画。
+
+```
+self.window.layer.speed = 100;
+```
+
+#### 9.3 手动动画
+
+通过调整layer的timeOffset达到手动控制动画。
+
+### 10. 缓冲
+
+#### 10.1 动画速度
+
+**CATimingFunction**
+
+显式动画：CAAnimation的timingFunction属性
+
+隐式动画：CATransaction的+setAnimationTimingFunction:方法
+
+```
+kCAMediaTimingFunctionLinear 
+kCAMediaTimingFunctionEaseIn 
+kCAMediaTimingFunctionEaseOut 
+kCAMediaTimingFunctionEaseInEaseOut
+kCAMediaTimingFunctionDefault
+```
+**UIView的动画缓冲**
+
+UIView动画的缓冲选项，给options参数添加如下常量之一
+
+```
+UIViewAnimationOptionCurveEaseInOut 
+UIViewAnimationOptionCurveEaseIn 
+UIViewAnimationOptionCurveEaseOut 
+UIViewAnimationOptionCurveLinear
+```
+
+**关键帧动画的缓冲**
+
+CAKeyframeAnimation有一个NSArray类型的timingFunctions属性，我们可以用它来对每次动画的步骤指定不同的计时函数。但是指定函数的个数一定要等于keyframes数组的元素个数减一，因为它是描述每一帧之间动画速度的函数。
+
+#### 10.2 自定义缓冲函数
+
+除了+functionWithName:之外，CAMediaTimingFunction同样有另一个构造函数，一个有四个浮点参数的+functionWithControlPoints::::
+
+CAMediaTimingFunction使用了一个叫做三次贝塞尔曲线的函数。一个三次贝塞尔曲线通过四个点来定义，第一个和最后一个点代表了曲线的起点和终点，剩下中间两个点叫做控制点，因为它们控制了曲线的形状，贝塞尔曲线的控制点其实是位于曲线之外的点，也就是说曲线并不一定要穿过它们。你可以把它们想象成吸引经过它们曲线的磁铁。
+
+![](../images/CoreAnimation/10.2.jpeg =400x)
+
+CAMediaTimingFunction的getControlPointAtIndex:values:方法， 用来检索控制点。
+
+**更加复杂的动画曲线**
+
+![](../images/CoreAnimation/10.2.2.jpeg =400x)
+
+- 用CAKeyframeAnimation创建一个动画，然后分割成几个步骤，每个小步骤使用自己的计时函数。
+- - 简单写死
+- - 流程自动化。（插值机制）
+- 使用定时器逐帧更新实现动画（见第11章，“基于定时器的动画”）。
+

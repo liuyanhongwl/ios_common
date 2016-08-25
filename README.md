@@ -61,6 +61,7 @@
  * [thirdparty-FMDB](files/thirdparty-fmdb.md)
  * [AFNetwork](files/thridparty-afnetwork.md)
  * [Google Cloud Message](files/google_cloud_message.md)
+ * [JSPatch](files/jspatch.md)
  
  
 #### Swift
