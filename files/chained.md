@@ -20,7 +20,7 @@
 
 * 代表：ReactiveCocoa。
 
-### 我们这里以链式编程思想代码实现一个计算器:
+### 以链式编程思想代码实现一个计算器:
 
 ```
 #import
@@ -32,6 +32,9 @@
 
 @end
 
+```
+
+```
 #import "NSObject+CaculatorMaker.h"
 #import "CaculatorMaker.h"
 
@@ -47,6 +50,8 @@
 
 @end
 
+```
+```
 #import
 
 @interface CaculatorMaker : NSObject
@@ -66,8 +71,8 @@
 - (CaculatorMaker *(^)(int))divide;
 
 @end
-
-
+```
+```
 #import "CaculatorMaker.h"
 
 @implementation CaculatorMaker
@@ -93,8 +98,38 @@ int iResult = [NSObject makeCaculators:^(CaculatorMaker *make) {
 ```
 
 分析下这个方法执行过程：
+
 第一步：NSObject 创建了一个block, 这个block里创建了一个CaculatorMaker对象make，并返回出来
+
 第二步：这个对象make调用方法add时，里面持有的属性iResult做了一个加法，并且返回自己，以便可以接下去继续调用方法。 
+
 这就是链式编程思想的一个很小但很明了的例子。
 
+### 用函数式编程实现，写一个加法计算器,并且加法计算器自带判断是否等于某个值.
 
+```
+@interface Caculator : NSObject
+
+@property(nonatomic,assign) int result;
+@property(nonatomic,assign) BOOL isEqule;
+
+- (Caculator *)caculator:(int (^)(int result))caculator;
+- (Caculator *)equale:(BOOL (^)(int result))operation;
+
+@end
+```
+调用
+
+```
+//计算2*5 == 10
+Caculator *c = [[Caculator alloc] init];
+
+BOOL isequal = [[[c caculator:^(int result){
+					result += 2;
+					result *= 5;
+					reture 10;
+				}] equale:^(int result)]{
+					return result == 10;
+				}] isEqule];
+
+```
