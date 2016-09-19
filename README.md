@@ -12,10 +12,11 @@
  * [Block(附Demo)](https://github.com/liuyanhongwl/TestBlock)
  * [iOS open other app](files/ios_open_other_app.md)
  * [加密解密](files/encrypt-decrypt.md)
- * [Background Task](files/background-task.md)  ==============
- * [显示苹果广告](files/ios-iad.md) ==========
+ * [Background Task](files/background-task.md) 
+ * [显示苹果广告](files/ios-iad.md)
  * [事件的传递](files/事件的传递.md)
  * [URL Scheme](files/url_scheme.md)
+ * [iOS唯一标识设备方法](files/ios-device-unique.md)
 
 
 #### OC Foundation
