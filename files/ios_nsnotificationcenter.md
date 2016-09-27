@@ -1,4 +1,4 @@
-## NSNotification
+## NSNotificationCenter
 
 #### viewController中监听Home键触发
 

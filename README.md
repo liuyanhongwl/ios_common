@@ -17,13 +17,15 @@
  * [事件的传递](files/事件的传递.md)
  * [URL Scheme](files/url_scheme.md)
  * [iOS唯一标识设备方法](files/ios-device-unique.md)
+ * [iOS后台下载](files/ios_background_download.md)
 
 
 #### OC Foundation
  * [OC(数据、字符串)](files/oc（关于数据、字符串）.md)
  * [NSException](files/ios_nsexception.md)
- * [NSNotification](files/ios_nsnotification.md)
+ * [NSNotification](files/ios_nsnotificationcenter.md)
  * [Local/Remote Notification](files/ios-local-remote-notification.md)
+ * [iOS10推送](files/ios10_usernotification.md)
  
  
 #### OC UIKit
@@ -86,7 +88,8 @@
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
 
 #### iOS Developer Library
- * [iOS9新增功能](files/ios_developer_library_--_ios9.md)
+ * [iOS9新增功能](files/ios_new_ios9.md)
+ * [iOS10新增功能](files/ios_new_ios10.md)
 
 
 #### XCODE 开发其他流程

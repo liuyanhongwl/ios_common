@@ -1,5 +1,8 @@
 ##Local/Remote Notification
 
+### 参考
+
+- [iOS推送全解析](http://www.cocoachina.com/ios/20160908/17511.html)
 
 ### 处理接收到远程通知消息（会回调以下方法中的某一个）
 
@@ -72,3 +75,16 @@ completionHandler:(void(^)())completionHandler {
 That post was by an Apple employee so I think i can trust that this information is correct.
 
 So it looks like when the app is killed from the app switcher (by swiping up), the app will never be launched, even for scheduled background fetches.
+
+
+### 遇到的问题
+
+- **自定义通知声音无效**
+
+首先要保证格式，时长符合要求。可以在终端使用如下命令转换。
+
+```
+afconvert test.mp3 test.caf -d ima4 -f caff -v
+```
+
+如果还不行，试着重装并且clean项目，重新运行。
