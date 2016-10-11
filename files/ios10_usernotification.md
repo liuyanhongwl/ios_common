@@ -1,5 +1,17 @@
 ## iOS10 UserNotification
 
+- [简介](#简介)
+- [新框架](#新框架)
+- [获取权限](#获取权限)
+- [获取用户设置](#获取用户设置)
+- [注册APNS，获取deviceToken](#注册APNS，获取deviceToken)
+- [本地推送流程](#本地推送流程)
+- [远程推送流程](#远程推送流程)
+- [通知策略（Category+Action）](#通知策略（Category+Action）)
+- [附件通知](#附件通知)
+- [代理回调](#代理回调)
+
+### 简介
 
 iOS10新增了UserNotificationKit框架，整合了关于通知的方法。增加了很多新特性：
 
@@ -162,16 +174,16 @@ getDeliveredNotificationsWithCompletionHandler:  //获取所有已经递送的�
 ### 远程推送流程
 
 1. 注册推送，获取deviceToken
-2. 收到普通推送
-3. 收到后台推送
-4. 收到静默推送
+2. 使用普通推送
+3. 使用后台推送
+4. 使用静默推送
 5. 管理通知
 
 #### 1. 注册推送，获取deviceToken
 
 在AppDelegate的application:didRegisterForRemoteNotificationsWithDeviceToken:里获取注册成功的deviceToken
 
-#### 2. 收到普通推送 
+#### 2. 使用普通推送 
 
 ```
 //iOS10 之前
@@ -197,7 +209,7 @@ getDeliveredNotificationsWithCompletionHandler:  //获取所有已经递送的�
 }
 ```
 
-#### 3. 收到后台推送
+#### 3. 使用后台推送
 
 iOS7以后要想在后台做一些操作，需要在APNS增加字段："content-available":1。并且在Background Modes中增加Remote notifications。
 
@@ -231,10 +243,11 @@ iOS7以后要想在后台做一些操作，需要在APNS增加字段："content-
     [[DownloadManager sharedInstance] start];
 }
 ```
+如果不打开Background Modes里面将Remote notifications，或者apsn里面不增加字段："content-available":1，app在后台收到推送，将不会调用上面的方法。
 
 更多后台处理可以看[iOS后台下载](ios_background_download.md)
 
-#### 4. 收到静默推送
+#### 4. 使用静默推送
 
 APNS去掉alert、badge、sound字段实现静默推送，增加增加字段："content-available":1，也可以在后台做一些事情。
 
@@ -358,7 +371,7 @@ content.attachments = @[attachment];
 
 ###  UNNotificationServiceExtension - 通知服务扩展
 
-<img src="../images/ios10_usernotification/unnotification-content-extension.jpg">
+<img src="../images/ios10_usernotification/unnotification-extension.jpg">
 
 UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，处理推送显示内容的机会。此时可以对通知的 request.content 进行内容添加，如添加附件，userInfo 等。
 
@@ -370,7 +383,9 @@ UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，�
 
 本文是根据iOS10推送通知的新框架， 将本地、远程推送的完整流程写了一遍。对于UNNotificationContentExtension（通知内容扩展）和 UNNotificationServiceExtension（通知服务扩展）这两块，将会另起篇幅详细描述。
 
-如果想了解iOS10之前的推送，[点击这里](ios-local-remote-notification.md)是个不错的选择。
+更多代码实现请查看[Demo](https://github.com/liuyanhongwl/UserNotification)， 如发现问题，请帮忙指正。
+
+如果想了解iOS10之前的推送，[点击这里](ios-local-remote-notification.md)
 
 如果想了解更多有关后台下载的知识， [点击这里](ios_background_download.md)
 

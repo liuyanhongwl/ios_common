@@ -25,7 +25,7 @@
  * [NSException](files/ios_nsexception.md)
  * [NSNotification](files/ios_nsnotificationcenter.md)
  * [Local/Remote Notification](files/ios-local-remote-notification.md)
- * [iOS10推送](files/ios10_usernotification.md)
+ * [iOS10推送通知](files/ios10_usernotification.md)
  
  
 #### OC UIKit
