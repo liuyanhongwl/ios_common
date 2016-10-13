@@ -2,7 +2,7 @@
 
 - [简介](#简介)
 - [UNNotificationServiceExtension - 通知服务扩展](#UNNotificationServiceExtension)
-- [UNNotificationContentExtension - 通知内容扩展](#UNNotificationContentExtension)
+- [UNNotificationContentExtension - 通知内容扩展](#UNNotificationContentExtension-通知内容扩展)
 
 <h2 id="简介"></h2>
 ### 简介
@@ -87,8 +87,7 @@ UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，�
 
 附件通知所带的附件格式大小都是有限的，并不能做所有事情，视频的前几帧作为一个通知的附件是个不错的选择。
 
-<h2 id="UNNotificationContentExtension"></h2>
-### UNNotificationContentExtension - 通知内容扩展
+### UNNotificationContentExtension-通知内容扩展
 
 要想创建一个自定义的用户界面，需要用到Notification Content Extension（通知内容扩展）。
 
