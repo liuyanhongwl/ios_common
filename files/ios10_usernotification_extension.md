@@ -1,9 +1,10 @@
 ## iOS10推送通知进阶(Notification Extension）
 
 - [简介](#简介)
-- [UNNotificationServiceExtension - 通知服务扩展](#UNNotificationServiceExtension - 通知服务扩展)
-- [UNNotificationContentExtension - 通知内容扩展](#UNNotificationContentExtension - 通知内容扩展)
+- [UNNotificationServiceExtension - 通知服务扩展](#UNNotificationServiceExtension)
+- [UNNotificationContentExtension - 通知内容扩展](#UNNotificationContentExtension)
 
+<span id="简介"></span>
 ### 简介
 
 这篇文章主要讲iOS10推送通知的两个扩展框架：**UNNotificationServiceExtension（通知服务扩展）** 和 **UNNotificationContentExtension（通知内容扩展）**。
@@ -14,6 +15,7 @@
 - 想要给通知创建一个自定义的用户界面，需要 UNNotificationContentExtension（通知内容扩展）。
 
 
+<span id="UNNotificationServiceExtension"></span>
 ### UNNotificationServiceExtension - 通知服务扩展
 
 如果经常使用iMessage的朋友们，就会经常收到一些信息，附带了一些照片或者视频，所以推送中能附带这些多媒体是非常重要的。如果推送中包含了这些多媒体信息，可以使用户不用打开app，不用下载就可以快速浏览到内容。众所周知，推送通知中带了push payload，即使z去年苹果已经把payload的size提升到了4k bites，但是这么小的容量也无法使用户能发送一张高清的图片，甚至把这张图的缩略图包含在推送通知里面，也不一定放的下去。在iOS X中，我们可以使用新特性来解决这个问题。我们可以通过新的service extensions来解决这个问题。
@@ -84,7 +86,8 @@ UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，�
 **注意：**使用UNNotificationServiceExtension，你有30秒的时间处理这个通知，可以同步下载图像和视频到本地，然后包装为一个UNNotificationAttachment扔给通知，这样就能展示用服务器获取的图像或者视频了。这里需要注意：如果数据处理失败，超时，extension会报一个崩溃信息，但是通知会用默认的形式展示出来，app不会崩溃。
 
 附件通知所带的附件格式大小都是有限的，并不能做所有事情，视频的前几帧作为一个通知的附件是个不错的选择。
- 
+
+<span id="UNNotificationContentExtension"></span>
 ### UNNotificationContentExtension - 通知内容扩展
 
 要想创建一个自定义的用户界面，需要用到Notification Content Extension（通知内容扩展）。
@@ -141,7 +144,7 @@ UNNotificationContentExtension协议有一个required方法didReceiveNotificatio
 
 接下来就是要让推送到达后，系统怎样找到自定义的UI。这时候就需要配置extension的info.plist文件。
 
-<img src="../images/ios10_usernotification_extension/unnotification-content-extension-info.jpeg">
+<img src="../images/ios10_usernotification_extension/unnotification-content-extension-info1.jpeg">
 
 这里和我们给notification actions注册category一样，给这个通知扩展指定相应的category。在UNNotificationExtensionCategory字段里写入相应的category id。值得提到的一点是，这里对应的category是可以为一个数组的，里面可以为多个category，这样做的目的是多个category共用同一套UI。
 
