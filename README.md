@@ -26,6 +26,7 @@
  * [NSNotification](files/ios_nsnotificationcenter.md)
  * [Local/Remote Notification](files/ios-local-remote-notification.md)
  * [iOS10推送通知](files/ios10_usernotification.md)
+ * [iOS10推送通知进阶(Notification Extension）](files/ios10_usernotification_extension.md)
  
  
 #### OC UIKit
@@ -65,7 +66,7 @@
 #### Third Party
  * [CocoaPods](files/cocoapods.md)
  * [Remove CocoaPods](files/remove-cocoapods.md)
- * [使用Cocoapods创建私有podspec](files/cocoapods-podspec.md) ===========
+ * [使用Cocoapods创建私有podspec](files/cocoapods-podspec.md) 
  * [thirdparty-FMDB](files/thirdparty-fmdb.md)
  * [AFNetwork](files/thridparty-afnetwork.md)
  * [Google Cloud Message](files/google_cloud_message.md)
@@ -73,7 +74,7 @@
  
  
 #### Swift
- * [Swift和Objective-C混编](files/mix-and-match.md) ==============
+ * [Swift和Objective-C混编](files/mix-and-match.md) 
  * [特点](files/swift-feature.md)
  
 #### App Store
@@ -82,7 +83,7 @@
 
 #### 开发原则
  * [指数退避](files/指数退避.md)
- * [设计模式--《HEAD FIRST》](files/pattern-head-first.md)   ==============
+ * [设计模式--《HEAD FIRST》](files/pattern-head-first.md)   
  * [链式编程思想](files/chained.md)
  * [ReactiveCocoa框架](files/reactivecocoa.md)
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
@@ -102,10 +103,10 @@
  
 #### 其他技术
  * [nvm 安装配置](files/nodejs-nvm.md)
- * [node.js course](files/nodejs-course.md)     ==============
+ * [node.js course](files/nodejs-course.md)     
  * [MAC 下终端使用Github](files/mac_git_terminal.md) 
  * [通信的基础知识](files/通信的基础知识.md)
- * [vimtutor](files/vimtutor.md)   ==============
+ * [vimtutor](files/vimtutor.md)   
  * [GitHub](files/github.md)
  * [更新缓存的设计模式](files/更新缓存的设计模式.md)
  

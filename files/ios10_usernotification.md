@@ -395,3 +395,4 @@ UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，�
 - [iOS10 关于推送](http://blog.csdn.net/yydev/article/details/52105830)
 - [iOS 10 推送的简单使用](http://www.cnblogs.com/MasterPeng/p/5909752.html)
 - [iOS10 User Notifications 学习笔记](http://maquannene.github.io/2016/06/27/iOS10%20UserNotifications%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#3-UNNotificationContentExtension-通知内容扩展)
+- [【WWDC2016 Session】iOS 10 推送Notification新特性](http://www.cocoachina.com/ios/20160628/16833.html)
