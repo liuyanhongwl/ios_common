@@ -226,9 +226,9 @@ iOS7以后要想在后台做一些操作，需要在APNS增加字段："content-
 
 要修改Background Modes， 可以修改info.plist中UIBackgroundModes字段， 或者在项目Target->Capabilities->Background Modes里面将Remote notifications选中。
 
-<img src="../images/ios10_usernotification/backgroundmodes-1.jpeg">
+<img src="../images/ios10_usernotification/backgroundmodes-1.jpeg" width="800">
 
-<img src="../images/ios10_usernotification/backgroundmodes-2.jpeg">
+<img src="../images/ios10_usernotification/backgroundmodes-2.jpeg" width="800">
 
 后台推送的回调，会调用AppDelegate的application:didReceiveRemoteNotification:fetchCompletionHandler:方法
 
@@ -366,14 +366,14 @@ content.attachments = @[attachment];
 
 ### UNNotificationContentExtension - 通知内容扩展
 
-通知内容扩展需要新建一个 UNNotificationContentExtension Target，之后只需在 viewcontroller 的中实现相应的接口，即可以对 app 的通知页面进行自定义扩展，扩展主要用于自定义 UI。
+通知内容扩展需要新建一个 UNNotificationContentExtension Target，之后只需在 viewcontroller 的中实现相应的接口，即可以对 app 的通知页面进行自定义扩展，扩展主要用于自定义 UI。[详情](http://www.jianshu.com/p/78ef7bc04655)
 
 
 ###  UNNotificationServiceExtension - 通知服务扩展
 
 <img src="../images/ios10_usernotification/unnotification-extension.jpg">
 
-UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，处理推送显示内容的机会。此时可以对通知的 request.content 进行内容添加，如添加附件，userInfo 等。
+UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，处理推送显示内容的机会。此时可以对通知的 request.content 进行内容添加，如添加附件，userInfo 等。[详情](http://www.jianshu.com/p/78ef7bc04655)
 
 通过远程推送的通知也支持 UNNotificationContentExtension，只需将 content.categoryIdentifier （通知内容类型标示） 的值设置为已经添加到 UNNotificationContentExtension plist 中的值即可。
 
@@ -382,6 +382,8 @@ UNNotificationServiceExtension 提供在远程推送将要被 push 出来前，�
 ### 结束语
 
 本文是根据iOS10推送通知的新框架， 将本地、远程推送的完整流程写了一遍。对于UNNotificationContentExtension（通知内容扩展）和 UNNotificationServiceExtension（通知服务扩展）这两块，将会另起篇幅详细描述。
+
+关于通知的两个扩展，[这里有更详细的文章](http://www.jianshu.com/p/78ef7bc04655)
 
 更多代码实现请查看[Demo](https://github.com/liuyanhongwl/UserNotification)， 如发现问题，请帮忙指正。
 

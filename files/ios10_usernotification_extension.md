@@ -7,7 +7,7 @@
 <h2 id="简介"></h2>
 ### 简介
 
-这篇文章主要讲iOS10推送通知的两个扩展框架：**UNNotificationServiceExtension（通知服务扩展）** 和 **UNNotificationContentExtension（通知内容扩展）**。
+这篇文章主要讲iOS10推送通知的两个扩展框架：**UNNotificationServiceExtension（通知服务扩展）** 和 **UNNotificationContentExtension（通知内容扩展）**。有关iOS10推送通知的新特性，[请看这里](http://www.jianshu.com/p/bb89d636f989)
 
 <img src="../images/ios10_usernotification_extension/xcode-unnotification-extension.jpeg">
 
@@ -347,6 +347,10 @@ UNTextInputNotificationAction的样式如下：
 ```
 
 我们可以提取content的attachments。前文提到过，attachment是由系统管理的，系统会把它们单独的管理，这意味着它们存储在我们sandbox之外。所以这里我们要使用attachment之前，我们需要告诉iOS系统，我们需要使用它，并且在使用完毕之后告诉系统我们使用完毕了。对应上述代码就是-startAccessingSecurityScopedResource和-stopAccessingSecurityScopedResource的操作。当我们获取到了attachment的使用权之后，我们就可以使用那个文件获取我们想要的信息了。
+
+### 结束语
+
+更多代码实现请查看[Demo](https://github.com/liuyanhongwl/UserNotification)， 如发现问题，请帮忙指正。
 
 #### 参考
 
