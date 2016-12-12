@@ -123,7 +123,7 @@ Today Extension 里面的 View Controller 遵守 NCWidgetProviding 协议。
 }
 ```
 
-**一个小提醒**
+**小提醒**
 
 - 由于通知中心的界面是一大块 UIVisualEffectView ，并且具体参数调整过，所以插件的背景色最好保持透明，主要文字颜色最好是白色，次要文字的颜色最好是 lightTextColor，这样能适应毛玻璃下的 Vibrancy 效果。
 
@@ -146,6 +146,21 @@ UILabel *fill = [[UILabel alloc] init];
 }];
 ```
 
+- iOS10 Today Extension 使用preferredContentSize 要在widgetActiveDisplayMode（Compact、Expanded）状态变化后设置。
+
+```
+- (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode withMaximumSize:(CGSize)maxSize
+{
+    self.dataArray = self.dataArray;
+    if (activeDisplayMode == NCWidgetDisplayModeExpanded) {
+        self.preferredContentSize = CGSizeMake(0, 233);
+    }else{
+        self.preferredContentSize = maxSize;
+    }
+}
+```
+
+注意当widgetActiveDisplayMode是Compact时，maxSize的高度是110。
 
 ## 共用代码
 

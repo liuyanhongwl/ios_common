@@ -41,8 +41,6 @@ objc_msgSend
 * 消息机制原理：对象根据方法编号SEL去映射表查找对应的方法实现
 
 ![方法映射](../images/runtime-sel-map1.png)
-<!--<img src="images/runtime-sel-map1.png" width = "500" height = "250" align = center />
--->
 
 编绎报错，解决方法objc_msgSend too many arguments to function call,expected 0, have3   
 
