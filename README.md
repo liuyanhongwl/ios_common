@@ -19,6 +19,7 @@
  * [URL Scheme](files/url_scheme.md)
  * [iOS唯一标识设备方法](files/ios-device-unique.md)
  * [iOS后台下载](files/ios_background_download.md)
+ * [iOS启动时间](files/iOS启动时间.md)
 
 
 #### OC Foundation
@@ -27,7 +28,6 @@
  * [NSNotification](files/ios_nsnotificationcenter.md)
  * [Local/Remote Notification](files/ios-local-remote-notification.md)
  * [iOS10推送通知](files/ios10_usernotification.md)
- * [iOS10推送通知进阶(Notification Extension）](files/ios10_usernotification_extension.md)
  
  
 #### OC UIKit
@@ -42,7 +42,7 @@
  * [AutoLayout](files/autolayout.md)
  * [UINavigationController](files/uinavigationcontroller.md)
  * [有关UIView绘制](files/ios-uiview-layout.md)
- 
+ * [3D Touch](files/3D-Touch.md)
 
 #### Core Animation
  * [Core Animation](files/core_animation.md)
@@ -65,7 +65,7 @@
  * [App Extension](files/App-Extension.md)
  * [Today Extension](files/ios-today-extension.md)
  * [iMessage Developer](files/iMessage-Developer.md)
- 
+ * [iOS10推送通知进阶(Notification Extension）](files/ios10_usernotification_extension.md)
 
 #### Third Party
  * [CocoaPods](files/cocoapods.md)
