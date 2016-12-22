@@ -8,6 +8,7 @@
  * [内存管理](files/内存管理.md)
  * [复制对象](files/复制对象.md)
  * [instancetype & id](files/instancetype-id.md)
+ * [+load & +initialize](files/load_initialize.md)
  * [Runtime](files/runtime.md)
  * [Runtime(2)](files/runtime_2.md)
  * [Block(附Demo)](https://github.com/liuyanhongwl/TestBlock)
@@ -20,6 +21,7 @@
  * [iOS唯一标识设备方法](files/ios-device-unique.md)
  * [iOS后台下载](files/ios_background_download.md)
  * [iOS启动时间](files/iOS启动时间.md)
+ * [iOS单例](files/iOS_单例.md)
 
 
 #### OC Foundation
