@@ -32,7 +32,50 @@ ReactiveCocoa结合了几种编程风格：
 
 为了支持这种模型，ReactiveCocoa自己持有全局的所有信号。如果一个signal有一个或多个订阅者，那这个signal就是活跃的。如果所有的订阅者都被移除了，那这个信号就能被销毁了。
 
-上面说的就引出了最后一个问题：如何取消订阅一个signal？在一个completed或者error事件之后，订阅会自动移除（马上就会讲到）。你还可以通过RACDisposable 手动移除订阅。
+上面说的就引出了最后一个问题：如何取消订阅一个signal？在一个completed或者error事件之后，
+订阅会自动移除（马上就会讲到）。你还可以通过RACDisposable 手动移除订阅。
+
+#### 1. RACSignal
+
+ReactiveCocoa signal（RACSignal）发送事件流给它的subscriber。目前总共有三种类型的事件：next、error、completed。一个signal在因error终止或者完成前，可以发送任意数量的next事件。
+
+每次next事件发生时，subscribeNext:方法提供的block都会执行。
+
+#### 2. 基本UI添加了signal
+
+ReactiveCocoa框架使用category来为很多基本UIKit控件添加signal
+
+#### 3. filter: 过滤某些事件
+
+#### 4. map: 转化事件值
+
+map操作通过block改变了事件的数据。
+
+#### 5. RAC宏
+
+RAC宏允许直接把信号的输出应用到对象的属性上。RAC宏有两个参数，第一个是需要设置属性值的对象，第二个是属性名。每次信号产生一个next事件，传递过来的值都会应用到该属性上。
+
+#### 6. 聚合信号
+
+`combineLatest:reduce:` 把多个signal产生的最新的值聚合在一起，并生成一个新的信号。每次这两个源信号的任何一个产生新值时，reduce block都会执行，block的返回值会发给下一个信号。
+
+#### 7. 创建信号
+
+`createSignal:` 方法的入参是一个block，这个block描述了这个信号。当这个信号有subscriber时，block里的代码就会执行。
+
+block的入参是一个subscriber实例，它遵循RACSubscriber协议，协议里有一些方法来产生事件，你可以发送任意数量的next事件，或者用error\complete事件来终止。
+
+这个block的返回值是一个RACDisposable对象，它允许你在一个订阅被取消时执行一些清理工作。当前的信号不需要执行清理操作，所以返回nil就可以了。
+
+#### 8. 信号中的信号
+
+`flattenMap:` 把原来的信号转成另一个信号传播
+
+#### 9. 添加附加操作
+
+`doNext:` doNext: block并没有返回值。因为它是附加操作，并不改变事件本身。
+
+
 
 ### RACCommand
 

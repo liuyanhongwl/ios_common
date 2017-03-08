@@ -96,7 +96,7 @@ NSLog(@"%@", s);
 
 但是，还没结束。
 
-我们添加一些属性：
+我们添加一些属性，并在-init方法中进行初始化：
 
 ```
 @property (assign, nonatomic)int height;
@@ -132,7 +132,7 @@ NSLog(@"%@", s);
 
 ### 方法四
 
-为了保证属性的初始化只执行一次，可以将属性的初始化或者默认值设置加上dispatch_once。
+为了保证属性的初始化只执行一次，可以将属性的初始化或者默认值设置也限制只执行一次。我们这里加上dispatch_once。
 
 ```
 + (instancetype)sharedInstance
@@ -232,7 +232,7 @@ load方法与initialize方法都会被Runtime自动调用一次，并且在Runti
 2. ` if (... && instance == nil)` 是为了防止+initialize多次调用而产生多个实例（除了Runtime调用，我们也可以显示调用+initialize方法）。经过测试，当我们将+initialize方法本身作为class的第一个方法执行时，Runtime的+initialize会被先调用（这保证了线程安全），然后我们自己显示调用的+initialize函数再被调用。 由于+initialize方法的第一次调用一定是Runtime调用，而Runtime又保证了线程安全性，因此这里只简单的检测 singalObject == nil即可。
 
 
-最好不用+load来做单例是因为它是在程序被装载时调用的，可能单例所依赖的环境尚未形成，它比较适合对Class做设置。(先知道更多关于+load和+initialize的知识，[看这里](load_initialize.md))
+最好不用+load来做单例是因为它是在程序被装载时调用的，可能单例所依赖的环境尚未形成，它比较适合对Class做设置。(更多关于+load和+initialize的知识，[看这里](load_initialize.md))
 
 ### 使用宏
 
@@ -270,6 +270,10 @@ static id instance = nil;   \
     return instance;
 }
 ```
+
+#### 结束语
+
+全部代码在这里[demo](https://github.com/liuyanhongwl/Singleton)
 
 #### 参考
 

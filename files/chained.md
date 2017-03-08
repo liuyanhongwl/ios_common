@@ -127,7 +127,7 @@ Caculator *c = [[Caculator alloc] init];
 BOOL isequal = [[[c caculator:^(int result){
 					result += 2;
 					result *= 5;
-					reture 10;
+					return 10;
 				}] equale:^(int result)]{
 					return result == 10;
 				}] isEqule];
