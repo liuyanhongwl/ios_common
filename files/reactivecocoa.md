@@ -39,7 +39,13 @@ RAC宏允许直接把信号的输出应用到对象的属性上。RAC宏有两�
 
 #### 6. 聚合信号
 
-`combineLatest:reduce:` 把多个signal产生的最新的值聚合在一起，并生成一个新的信号。每次这两个源信号的任何一个产生新值时，reduce block都会执行，block的返回值会发给下一个信号。
+`combineLatest:reduce:` 把多个signal产生的最新的值聚合在一起，并生成一个新的信号。每次这两个源信号的任何一个产生新值时（前提是所有管道内都要有水），reduce block都会执行，block的返回值会发给下一个信号。
+
+<img src="../images/reactivecocoa/rac-combineLatest.png">
+
+`merge:` 就是把多个信号量，放入数组中通过merge函数来合并数组中的所有信号量为一个。类比一下，合并后，无论哪个水管中有水都会在merge产生的水管中流出来的。（不需要所有管道内都需要有水）
+
+<img src="../images/reactivecocoa/rac-merge.png">
 
 #### 7. 创建信号
 
