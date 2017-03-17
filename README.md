@@ -86,6 +86,7 @@
  
 #### Swift
  * [Swift和Objective-C混编](files/mix-and-match.md) 
+ * [是否应该选择swift](files/是否应该选择swift.md)
  * [特点](files/swift-feature.md)
  
 #### App Store
