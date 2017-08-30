@@ -273,7 +273,7 @@ static id instance = nil;   \
 
 #### 结束语
 
-全部代码在这里[demo](https://github.com/liuyanhongwl/Singleton)
+全部代码在这里[demo](https://github.com/liuyanhongwl/ios-design-patterns)
 
 #### 参考
 

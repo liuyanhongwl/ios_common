@@ -14,7 +14,7 @@ NSURL *url = [NSURL URLWithString:@"http://google.com"];
 还有几种用于本地iPhone应用程序的URL方案，并且可以使用类似的方式来启动它们。[About Apple URL Schemes](https://developer.apple.com/library/prerelease/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007899)
 
 
-#### 二. 想要实现A应用打开B应用。
+#### 二. A应用打开B应用。
 
 原理： A应用根据URL Schemes来启动B应用。
 
@@ -56,7 +56,7 @@ NSURL *url = [NSURL URLWithString:@"http://google.com"];
 
 ##### 3. iOS9 URL Schemes
 
-在iOS9中，如果使用 canOpenURL: 方法，该方法所涉及到的 URL scheme 必须在"Info.plist"中将它们列为白名单，否则不能使用。key叫做LSApplicationQueriesSchemes ，键值内容是
+在iOS9以后，如果使用 canOpenURL: 方法，该方法所涉及到的 URL scheme 必须在"Info.plist"中将它们列为白名单，否则不能使用。key叫做LSApplicationQueriesSchemes ，键值内容是
 
 ```
 <key>LSApplicationQueriesSchemes</key>
@@ -69,7 +69,7 @@ NSURL *url = [NSURL URLWithString:@"http://google.com"];
 
 ```
 
-所以在iOS9中，我们需要在A应用的info.plist里加入如下，才能打开B应用
+所以在iOS9以后，我们需要在A应用的info.plist里加入如下，才能打开B应用
 
 ```
 <key>LSApplicationQueriesSchemes</key>
@@ -87,7 +87,7 @@ NSURL *url = [NSURL URLWithString:@"http://google.com"];
 
 被打开的B应用会调用**application:openURL:options:**方法
 
-- 如果B应用不在后台：会走**application:willFinishLaunchingWithOptions:** 和 **application:didFinishLaunchingWithOptions:**方法，如果这两个方法有至少一个返回NO，将不会调用**application:openURL:options:**方法。
+- 如果B应用不在后台：会走**application:willFinishLaunchingWithOptions:** 和 **application:didFinishLaunchingWithOptions:**方法，如果这两个方法有一个返回NO，将不会走**application:openURL:options:**方法。
 
 - 如果B应用在后台，不会走**application:willFinishLaunchingWithOptions:** 和 **application:didFinishLaunchingWithOptions:**方法，所以会调用**application:openURL:options:**
 
@@ -99,13 +99,15 @@ NSURL *url = [NSURL URLWithString:@"http://google.com"];
 
 ```
 
-返回NO是什么意思？
+为什么返回NO无效果？有知道的小伙伴指点一下。
 
 #### 四. 应用程序之间共享数据
 
+这里的共享数据指的是APP跳转时，通过URL传递数据。
 
 #### 五. 其他
 
 也可以在Safari中，键入使用定制模式的URL（myapp://），确认是否启动B应用，**就可以从Safari中打开注册的B应用**。
 
 详情请看 [App Programming Guide for iOS](https://developer.apple.com/library/prerelease/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Inter-AppCommunication/Inter-AppCommunication.html#//apple_ref/doc/uid/TP40007072-CH6-SW2)
+

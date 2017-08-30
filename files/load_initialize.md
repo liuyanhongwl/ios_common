@@ -60,7 +60,7 @@ runtime 使用了发送消息 objc_msgSend 的方式对 +initialize 方法进行
 
 ### 扩展
 
-因为两个方法只会被系统调用一次（除主动调用外），并且是线程安全的，可以用来作为单例的实现。（可以用+initialize，+load有些隐患，[看这里](iOS_单例.md)）
+因为两个方法只会被系统调用一次（除主动调用外），并且是线程安全的，可以用来作为单例的实现。（可以用+initialize，+load有些隐患，[看这里](https://github.com/liuyanhongwl/ios_common/blob/master/files/iOS_%E5%8D%95%E4%BE%8B.md))
 
 
 ### 注意
@@ -94,6 +94,10 @@ runtime 使用了发送消息 objc_msgSend 的方式对 +initialize 方法进行
 |若自身未实现，是否沿用父类的方法？|否|	是|
 |类别中的定义|全都执行，但后于本类的方法|覆盖本类的方法，只执行一个|
 |线程安全|安全|安全|
+
+#### 结束语
+
+[可以看运行demo查看log](https://github.com/liuyanhongwl/ios-foundations-examples)
 
 #### 参考
 
