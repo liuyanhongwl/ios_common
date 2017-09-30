@@ -24,6 +24,7 @@
  * [iOS启动时间](files/iOS启动时间.md)
  * [iOS单例](files/iOS_单例.md)
  * [iOS多线程](files/iOS_多线程.md)
+ * [iOS vs JS](files/ios-vs-js.md)
 
 
 #### OC Foundation
@@ -119,7 +120,6 @@
  * [MAC 下终端使用Github](files/mac_git_terminal.md) 
  * [通信的基础知识](files/通信的基础知识.md)
  * [vimtutor](files/vimtutor.md)   
- * [GitHub](files/github.md)
  * [更新缓存的设计模式](files/更新缓存的设计模式.md)
  
  
