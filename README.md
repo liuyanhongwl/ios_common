@@ -10,20 +10,15 @@
  * [instancetype & id](files/instancetype-id.md)
  * [+load & +initialize](files/load_initialize.md)
  * [Runtime](files/runtime.md)
- * [Runtime(2)](files/runtime_2.md)
+ * [iOS多线程](files/iOS_多线程.md)
  * [RunLoop](files/runloop.md)
  * [Block](files/block.md)
- * [iOS open other app](files/ios_open_other_app.md)
- * [加密解密](files/encrypt-decrypt.md)
- * [Background Task](files/background-task.md) 
- * [显示苹果广告](files/ios-iad.md)
  * [事件的传递](files/事件的传递.md)
+ * [iOS open other app](files/ios_open_other_app.md)
  * [URL Scheme](files/url_scheme.md)
- * [iOS唯一标识设备方法](files/ios-device-unique.md)
+ * [Background Task](files/background-task.md) 
  * [iOS后台下载](files/ios_background_download.md)
- * [iOS启动时间](files/iOS启动时间.md)
  * [iOS单例](files/iOS_单例.md)
- * [iOS多线程](files/iOS_多线程.md)
  * [iOS vs JS](files/ios-vs-js.md)
 
 
@@ -33,7 +28,7 @@
  * [NSNotification](files/ios_nsnotificationcenter.md)
  * [Local/Remote Notification](files/ios-local-remote-notification.md)
  * [iOS10推送通知](files/ios10_usernotification.md)
- 
+
  
 #### OC UIKit
  * [UIApplication](files/ios-uiapplication.md)
@@ -41,7 +36,6 @@
  * [UITableView各种问题](files/uitableview.md)
  * [UITableView利用AutoLayout自动调整高度](files/uitableviewcell-autolayout.md)
  * [OC(Image)](files/oc_image.md)
- * [OC操作](files/oc_operation.md)
  * [计算UILabel的高度](files/uilabel-height.md)
  * [UIScrollView](files/ios_uiscrollview.md)
  * [AutoLayout](files/autolayout.md)
@@ -49,28 +43,34 @@
  * [有关UIView绘制](files/ios-uiview-layout.md)
  * [3D Touch](files/3D-Touch.md)
 
-#### Core Animation
+
+#### Graphics and Games
  * [Core Animation](files/core_animation.md)
+  
  
-#### Data Management
-
- * [Core Data](files/core_data.md)
-
-#### Audio & Video
- * [OC获取权限](files/oc_get_authorization.md)
- 
- 
-#### Media Layer
+#### Media 
  * [Photos.framework](files/oc-photos-framework.md)
  * [PhotoKit & ALAssetLibrary](files/oc-photokit-alassetlibrary.md)
  
 
-#### App Extension
+#### App Services
  * [App Extension Tips](files/App-Extension-Tips.md)
  * [App Extension](files/App-Extension.md)
  * [Today Extension](files/ios-today-extension.md)
  * [iMessage Developer](files/iMessage-Developer.md)
  * [iOS10推送通知进阶(Notification Extension）](files/ios10_usernotification_extension.md)
+ * [Core Data](files/core_data.md)
+
+
+#### Tips
+
+ * [加密解密](files/encrypt-decrypt.md)
+ * [显示苹果广告](files/ios-iad.md)
+ * [iOS唯一标识设备方法](files/ios-device-unique.md)
+ * [OC操作](files/oc_operation.md)
+ * [iOS启动时间](files/iOS启动时间.md)
+ * [OC获取权限](files/oc_get_authorization.md)
+
 
 #### Third Party
  * [CocoaPods](files/cocoapods.md)
@@ -90,9 +90,10 @@
  * [是否应该选择swift](files/是否应该选择swift.md)
  * [特点](files/swift-feature.md)
  
-#### App Store
 
+#### App Store
  * [App Store 上线错误](files/appstore_upload_error.md)
+
 
 #### 开发原则
  * [指数退避](files/指数退避.md)
@@ -100,6 +101,7 @@
  * [链式编程思想](files/chained.md)
  * [ReactiveCocoa框架](files/reactivecocoa.md)
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
+
 
 #### iOS Developer Library
  * [iOS9新增功能](files/ios_new_ios9.md)
@@ -117,7 +119,7 @@
 #### 其他技术
  * [nvm 安装配置](files/nodejs-nvm.md)
  * [node.js course](files/nodejs-course.md)     
- * [MAC 下终端使用Github](files/mac_git_terminal.md) 
+ * [使用Git](files/mac_git_terminal.md) 
  * [通信的基础知识](files/通信的基础知识.md)
  * [vimtutor](files/vimtutor.md)   
  * [更新缓存的设计模式](files/更新缓存的设计模式.md)
@@ -127,6 +129,3 @@
  * [技术查询网站](files/skill-search.md)
  * [自动代理的pac文件](otherfiles/autoproxy/)
  
-
-
-# 

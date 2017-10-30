@@ -1,4 +1,4 @@
-## Mac下终端使用Git
+## 使用Git
 
 
  - ##### 打开终端，先测试一下你的帐号跟github连上没有
@@ -35,7 +35,7 @@ git clone username@host:/path/to/repository
 
 #### 工作流
 
-你的本地仓库由 git 维护的三棵“树”组成。第一个是你的 工作目录，它持有实际文件；第二个是 缓存区（Index），它像个缓存区域，临时保存你的改动；最后是 HEAD，指向你最近一次提交后的结果。
+git 仓库的三个组成部分：工作区（Working Directory）、暂存区（Stage）和历史记录区（History，其中HEAD，指向你最近一次提交后的结果）。
 
 #### 添加与提交
 
@@ -79,9 +79,9 @@ git push origin <branch>
 ```
 $ git push origin :serverfix
 To git@github.com:schacon/simplegit.git
- - [deleted]         serverfix 
- 
- ```
+ - [deleted]         serverfix  
+```
+
 咚！服务器上的分支没了。你最好特别留心这一页，因为你一定会用到那个命令，而且你很可能会忘掉它的语法。有种方便记忆这条命令的方法：记住我们不久前见过的 **git push [远程名] [本地分支]:[远程分支]** 语法，如果省略 [本地分支]，那就等于是在说“在这里提取空白然后把它变成[远程分支]”。
 
 #### 更新与合并
@@ -142,8 +142,8 @@ $ git reset --hard HEAD~
 ```
 $ git checkout branch2
 $ git rebase master
-
 ```
+
 * 和merge时的操作相同，修改在发生冲突的部分。
 
 * rebase的时候，修改冲突后的提交不是使用commit命令，而是执行rebase命令指定 --continue选项。若要取消rebase，指定 --abort选项。
@@ -197,6 +197,7 @@ $ git checkout tags/<tag_name>
 -----
 ### 常用命令
 - 拉取 git pull
+git pull = git fetch + git merge
 
 
 - 新建分支   
@@ -208,14 +209,16 @@ git checkout -b feature-yyy feature-xxx
 git add -A .  	把所有的修改加入 commit    
 git commit -a -m ‘1.增加了xxx；2. 修改了yyy。’     新增一个 commit     
 git push origin master    将修改提交到服务器的 feature-ui
-
+git commit —amend  修改上次提交的message
+git rebase -i HEAD~4  合并最近四次提交 
 
 - git status # 查看本地仓库的修改状态     
 git add # 暂存文件     
 git commit # 提交文件     
 git stash # 保存当前修改    
 git stash list #保存的修改站     
-git stash pop #拿出保存的修改    
+git stash pop #拿出保存的修改   
+
 
 用 .gitignore文件 来避免把一些不必要的文件上传到 GitLab，内容如下，   
 .DS_Store    
@@ -227,3 +230,8 @@ Podfile.lock
 Pods/    
 
 .gitignore 是可以影响子目录。
+
+
+### 参考
+
+- [面试中的那些 Git 问题 - 基础部分](http://www.jianshu.com/p/e1e9692f3d88)
