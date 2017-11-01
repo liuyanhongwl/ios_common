@@ -76,13 +76,13 @@
  * [CocoaPods](files/cocoapods.md)
  * [Remove CocoaPods](files/remove-cocoapods.md)
  * [使用Cocoapods创建私有podspec](files/cocoapods-podspec.md) 
- * [thirdparty-FMDB](files/thirdparty-fmdb.md)
- * [AFNetwork](files/thridparty-afnetwork.md)
+ * [FMDB](files/thirdparty-fmdb.md)
+ * [AFNetwork](files/thirdparty-afnetwork.md)
+ * [Reachability](files/read-source-code-Reachability.md)
  * [Google Cloud Message](files/google_cloud_message.md)
  * [JSPatch](files/jspatch.md)
  * [RMStore](files/read-source-code-RMStore.md)
- * [Reachability](files/read-source-code-Reachability.md)
- * [SDWebImage](files/SDWebImage.md)
+ * [SDWebImage](files/thirdparty-sdwebimage.md)
  
  
 #### Swift
