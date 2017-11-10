@@ -56,3 +56,11 @@
 03 使用频率：经常使用
 04 线程生命周期：自动管理
 ```
+
+
+### 参考
+
+- [GCD 深入理解（一）](http://www.cocoachina.com/industry/20140428/8248.html)
+- [GCD 深入理解（二）](http://www.cocoachina.com/ios/20140515/8433.html)
+- [iOS多线程与GCD 你看我就够了](http://www.cocoachina.com/ios/20160804/17291.html)
+- [关于iOS多线程，你看我就够了（已更新）](http://www.cocoachina.com/ios/20150731/12819.html)

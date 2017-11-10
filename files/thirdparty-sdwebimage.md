@@ -24,7 +24,6 @@
 
 10.回调 SDWebImageManager 的 下载完成 block。判断配置，是否需要缓存，需要缓存的通过 SDImageCache 缓存。回调 UIView+WebCache 进行显示图片等操作。
 
-
 ### SDWebImage 库的作用
 
 1. **SDWebImage(WebCache)** : 入口封装，实现读取图片完成后的回调。
@@ -32,5 +31,14 @@
 3. **SDWebImageCache** : 根据URL的MD5对图片进行存储和读取（实现在内存中或者硬盘上的两种实现），实现图片的内存清理工作。
 4. **SDWebImageDownloader** : 根据URL向网络读取数据（实现部分读取和全部读取后的回调）
 5. **SDWebImageDecoder** : 图片解码处理。
+
+### 收获
+
+1. 职责分明，结构清晰，将不同任务分给不同的类。
+2. 下载使用 NSOperation + NSURLSession， GCD 的 barrier 控制数组的增删改查。
+3. 内存缓存使用 NSCache，NSCache 是线程安全的，多线程中使用无需加锁。
+4. 硬盘缓存使用 GCD的串行队列进行存取操作，控制 NSFileManager。这里 NSOperation 只是做取消标记用。
+
+
 
 
