@@ -66,7 +66,7 @@ AutoLayout中NSLayoutAttribute的枚举值也有相应的更新：
 
 效果：
 
-<img src="../images/AutoLayout-Margins/layoutMargin.png" style="width: 300px;" />
+<img src="../images/AutoLayout-Margins/layoutMargin.png" width="300"/>
 
 可以看到orangeView相对上下左右有个比较大的margin。（这里肉左右下的margin是50，但是肉眼看距离上面的margin似乎要比左右下的margin大，这是因为iOS11的Safe Area，下面会讲到）
 
@@ -128,13 +128,13 @@ typedef struct NSDirectionalEdgeInsets {
 
 效果：
 
-<img src="../images/AutoLayout-Margins/preservesSuperviewLayoutMargins-1.png" style="width:300px;"/>
+<img src="../images/AutoLayout-Margins/preservesSuperviewLayoutMargins-1.png" width="300"/>
 
 其中`orangeView.preservesSuperviewLayoutMargins = YES;`就设置了orangeView保持父视图的layoutMargins，下面没有保持父视图的边距是因为，orangeView不在父视图的bottomMargin内。
 
 如果把``orangeView.preservesSuperviewLayoutMargins = YES;``这句代码去掉或者设置为NO，效果如下：
 
-<img src="../images/AutoLayout-Margins/preservesSuperviewLayoutMargins-2.png" style="width:300px;"/>
+<img src="../images/AutoLayout-Margins/preservesSuperviewLayoutMargins-2.png" width="300"/>
 
 这里忽略上边距（iOS11 Safe Area引起，后面讲），发现redView的左右边距不再相对爷爷视图，也就是blueView的Margin对齐了，这是因为视图orangeView没有保持blueView的layoutMargin。
 
@@ -148,7 +148,7 @@ typedef struct NSDirectionalEdgeInsets {
 
 也就是我们想要orangeView保持父视图的Margin的基础上，增加自己的左Margin，效果如下：
 
-<img src="../images/AutoLayout-Margins/preservesSuperviewLayoutMargins-3.png" style="width:300px;"/>
+<img src="../images/AutoLayout-Margins/preservesSuperviewLayoutMargins-3.png" width="300"/>
 
 发现效果和orangeView没有自己的Margin时一样，这是因为视图本身的Margin和从父视图保持来的Margin是重合的。也就是说preservesSuperviewLayoutMargins=YES时，真正layoutMargins的值是，“手动设置layoutMargins值”与”在父视图Margin范围内区域“的最大值，伪代码表示如下：
 
