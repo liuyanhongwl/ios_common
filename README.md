@@ -41,7 +41,7 @@
  * [UIScrollView](files/ios_uiscrollview.md)
  * [AutoLayout 约束的优先级](files/AutoLayout-Constraint-Priority.md)
  * [AutoLayout Size](files/AutoLayout-Size.md)
- * [AutoLayout Margins](files/AutoLayout-Margins.md)
+ * [UIView的Margins](files/UIView-Margins.md)
  * [UINavigationController](files/uinavigationcontroller.md)
  * [有关UIView绘制](files/ios-uiview-layout.md)
  * [3D Touch](files/3D-Touch.md)
