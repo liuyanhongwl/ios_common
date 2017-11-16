@@ -24,6 +24,8 @@ self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 ```
 
+iOS8到这里就可支持cell自动调整高度了，因为cell在它们还没onscreen时，使用estimate height。当它们滚到屏幕中时，再计算真实高度。
+
 - iOS7需要获取约束算好的高度
 
 ```
@@ -78,3 +80,7 @@ self.tableView.rowHeight = UITableViewAutomaticDimension;
 [self.bannerView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
 [self.bannerView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
 ```
+
+### 参考
+
+- [stackoverflow:Using Auto Layout in UITableView for dynamic cell layouts & variable row heights](https://stackoverflow.com/questions/18746929/using-auto-layout-in-uitableview-for-dynamic-cell-layouts-variable-row-heights)
