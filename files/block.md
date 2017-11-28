@@ -332,4 +332,4 @@
 
 - [iOS Block用法和实现原理](https://www.wangjiawen.com/ios/ios-block-usage-and-implementation)
 - [__weak与__block区别](http://honglu.me/2015/01/06/weak%E4%B8%8Eblock%E5%8C%BA%E5%88%AB/)
-
+- [深入浅出－iOS Block原理和内存中位置](http://www.jianshu.com/p/7b1c2951b508`)
