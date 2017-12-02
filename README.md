@@ -21,7 +21,7 @@
  * [iOS后台下载](files/ios_background_download.md)
  * [iOS单例](files/iOS_单例.md)
  * [iOS vs JS](files/ios-vs-js.md)
-
+ * [NSProxy](files/NSProxy.md)
 
 #### OC Foundation
  * [OC(数据、字符串)](files/oc（关于数据、字符串）.md)

@@ -1,6 +1,21 @@
 ## Runtime
 
+### 前言
+
 对于 runtime，看了很多的文章， 开发过程中也零零碎碎的用到过，感觉都不甚全面。反反复复研究了几次，决定写下来。对于初学者，感觉 runtime 很高深，不敢涉足；对于经常使用 runtime 的人来说，觉得 runtime 就那么点东西，不足为奇。其实在我反复研究它的过程中，每次都有收获，因为它的原理不难，但是涉及很多，它贯穿这门语言，却刀锋尖利。
+
+- 一. runtime 简介
+- 二：对象、类的结构
+- - objc_object
+- - objc_class
+- 三、消息传递（Messaging）
+- - objc_method
+- - objc_msgSend
+- 四、动态方法解析和转发
+- - 动态方法解析
+- - 快速消息转发
+- - 标准消息转发
+- - 消息转发的用途
 
 ### 一. runtime 简介
 
@@ -59,6 +74,8 @@ isa指针|
 父类的实例变量|
 类的实例变量|
 
+//// 加入LLDB 对象结构体输出
+
 **类（objc_class）**主要组成：isa指向元类（Meta Class），`super_class `指向父类、`objc_method_list `存储实例方法。类里面和对象一样也有isa指针，说明类也是个对象，类是元类的实例。
 
 **元类（objc_class）**，在类对象里的isa指针也指向一个`objc_class `类型的结构体，就是元类对象，结构和类对象一样，但是`objc_method_list `存储的是类方法。
@@ -79,7 +96,9 @@ Alan Kay 曾多次强调 Smalltalk 的核心不是面向对象，面向对象只
 objc_msgSend(array, @selector(insertObject:atIndex:), foo, 5);
 ```
 
-**方法的结构（objc_method）**`objc_class`里的`objc_method_list`本质是一个有 `objc_method` 元素的可变长度的数组。`objc_method`的定义如下：
+#### 方法的结构（objc_method）
+
+objc_class`里的`objc_method_list`本质是一个有 `objc_method` 元素的可变长度的数组。`objc_method`的定义如下：
 
 ```
 struct objc_method {
@@ -94,6 +113,7 @@ struct objc_method {
 `
 - method_types：表示函数参数及返回值类型的字符串 (见[Type Encoding](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html)) 
 
+#### objc_msgSend
 
 **消息传递的关键**在于 `objc_object` 中的 isa 指针和 `objc_class` 中的 class dispatch table。举`objc_msgSend(obj, foo)`这个例子来说：
 
@@ -133,6 +153,304 @@ for (i = 0 ; i < 1000 ; i++)
     setter(targetList[i], @selector(setFilled:), YES);
 ```
 前两个参数传递给接收对象（self）的程序和方法选择器（_cmd）。这些参数在方法语法中是隐藏的，但当该方法当成函数调用时，必须是显式的。
+
+### 四、动态方法解析和转发
+
+当一个对象能接收一个消息时，就会走正常的方法调用流程，也就是上面的消息传递流程。但如果一个对象无法接收指定消息时，又会发生什么事呢？
+
+当向someObject发送某消息，但runtime system在当前类和父类中都找不到对应方法的实现时，runtime system并不会立即报错使程序崩溃，而是依次执行下列步骤：
+
+![Message forwarding2](../images/runtime/message_forwarding_1)
+
+流程：
+
+- 动态方法解析
+- 快速消息转发
+- 标准消息转发
+    
+#### 动态方法解析（Dynamic Method Resolution）   
+
+对象在接收到未知的消息时，首先会调用所属类的类方法`+resolveInstanceMethod:`(实例方法)或者`+resolveClassMethod:`(类方法)。在这个方法中，我们有机会为该未知消息新增一个”处理方法””。
+
+我们可以在这里添加对该消息的处理方法，并返回YES，则将重新objc_msgSend：
+
+```
++ (BOOL)resolveInstanceMethod:(SEL)aSEL  
+{  
+    if (aSEL == @selector(resolveThisMethodDynamically)) {  
+          class_addMethod([self class], aSEL, (IMP) dynamicMethodIMP, "v@:");  
+          return YES;  
+    }  
+    return [super resolveInstanceMethod:aSEL];  
+} 
+```
+
+#### 快速消息转发
+
+调用`-forwardingTargetForSelector:`方法，尝试找到一个能响应该消息的对象。如果获取到，则直接把消息转发给它，返回非 nil 对象。否则返回 nil ，继续下面的动作。注意，这里不要返回 self ，否则会形成死循环。
+
+```
+- (id)forwardingTargetForSelector:(SEL)aSelector  
+{  
+    Doctor *doctor = [[Doctor alloc]init];  
+    if ([doctor respondsToSelector:aSelector]) {  
+        return doctor;  
+    }  
+    return nil;  
+} 
+```
+
+这一步我们只想将消息转发到另一个能处理该消息的对象上。但这一步无法对消息进行处理，如操作消息的参数和返回值。
+
+#### 标准消息转发
+
+如果想要对消息进行处理，就可以在这一步操作消息的参数和返回值，还可以让多个对象响应，甚至把消息吞掉。
+
+runtime system会调用`-methodSignatureForSelector:`方法，尝试获得一个方法签名。如果获取不到，则直接调用doesNotRecognizeSelector抛出异常。如果能获取，则返回非nil：runtime system会创建一个 NSlnvocation 并传给`-forwardInvocation:`。
+
+也就是说如果本类没有能响应的方法，`-methodSignatureForSelector:`方法本来应该返回nil，需要重写该方法想办法返回需要的签名，好让runtime system可以调用`-forwardInvocation:`。重写`-forwardInvocation:`，来对消息进行处理（交给其它对象处理、处理消息参数等）。
+
+需要重写`-methodSignatureForSelector:`和`-forwardInvocation:`方法：
+
+```
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector  
+{  
+    NSMethodSignature* signature = [super methodSignatureForSelector:aSelector];  
+    if (signature==nil) {  
+        signature = [someObj methodSignatureForSelector:aSelector];  
+    }  
+    NSUInteger argCount = [signature numberOfArguments];  
+    for (NSInteger i=0 ; i<argCount ; i++) {  
+    	//操作参数
+    }  
+      
+    return signature;  
+}  
+  
+- (void)forwardInvocation:(NSInvocation *)anInvocation  
+{  
+    SEL seletor = [anInvocation selector];  
+    if ([someObj respondsToSelector:seletor]) {  
+        [anInvocation invokeWithTarget:someObj];  
+    }  
+      
+}  
+```
+
+#### 两种消息转发方式的比较
+
+- 快速消息转发：简单、快速、但仅能转发给一个对象。
+- 标准消息转发：稍复杂、较慢、但转发操作实现可控，可以实现多对象转发。
+
+#### 消息转发的用途
+
+- **多重继承**
+
+转发类似继承，可以用来支持Objective-C 编程的多重继承的某些效果。一个对象通过转发消息来响应消息，该对象似乎是借或者“继承”另一个类中实现的方法。如下图所示：
+
+![Message forwarding2](../images/runtime/message_forwarding_2.gif)
+
+不过消息转发虽然类似于继承，但NSObject的一些方法还是能区分两者。如`-respondsToSelector:`和`-isKindOfClass:`只能用于继承体系，而不能用于转发链。便如果我们想让这种消息转发看起来像是继承，则可以重写这些方法。
+
+- **代理对象**
+
+转发不仅模仿多重继承，还可以开发轻量级对象代表原来的对象。代理代替原来的对象并传送消息给原来的对象。
+
+苹果给了更为纯净的类[NSProxy]()，专门处理消息转发。
+
+### 五、Method Swizzling
+
+其实runtime的概念、特性已经讲完了。现在来说一下runtime很强大的一个黑色技能：Method Swizzling。
+
+Method Swizzling 利用 Runtime 特性把一个方法的实现与另一个方法的实现进行替换。
+
+**消息传递** 中有讲到，每个类里都有一个 dispatch table ，将方法的名字（SEL）跟方法的实现（IMP，指向 C 函数的指针）一一对应。swizzle 一个方法其实就是在程序运行时在 dispatch table 里做点改动，让这个方法的名字（SEL）对应到另个 IMP 。
+
+转换前，一一对应：
+
+<img src="../images/runtime/method_swizzling_1.png" width="400" />
+
+转换后，交换一一对应：
+
+<img src="../images/runtime/method_swizzling_2.png" width="400" />
+
+在`objc/runtime.h`中，OC提供了以下API来动态替换方法的实现：
+
+- `class_replaceMethod`
+- `method_setImplementation`
+- `method_exchangeImplementations`
+
+这些方法归根结底，都是偷换了method的IMP。
+
+#### class_replaceMethod
+
+```
+class_replaceMethod(Class _Nullable cls, SEL _Nonnull name, IMP _Nonnull imp, 
+                    const char * _Nullable types) 
+```
+
+在文档中详细说明了，它有两种不同的行为。当类中没有想替换的原方法时，该方法会调用 `class_addMethod` 来为该类增加一个新方法。也因此它需要在调用时传入types参数，而`method_exchangeImplementations`和`method_setImplementation`却不需要。
+
+#### method_setImplementation
+
+最简单，仅仅是给一个方法设置其实现方式。
+
+#### method_exchangeImplementations
+
+顾名思义，是交换两个方法的实现，等同于调用两次`method_setImplementation `：
+
+```
+IMP imp1 = method_getImplementation(m1);
+IMP imp2 = method_getImplementation(m2);
+method_setImplementation(m1, imp2);
+method_setImplementation(m2, imp1);
+```
+
+#### Method Swizzling 的应用
+
+有时候我们想对已有类的已有实现增加一些额外处理，这时候我们可以在已有类的分类中做Method Swizzling。
+
+下面我们在UIControl的分类里，将`-setTag:`和自定义的`-xxx_setTag:`方法交换：
+
+```
+- (void)xxx_setTag:(NSInteger)tag {
+    NSLog(@"%s  tag=%ld", __FUNCTION__, tag);
+    return [self xxx_setTag:tag];
+}
+```
+上面是自定义`-xxx_setTag:`方法的实现，乍一看像是递归。但是别忘了我们是要调换方法的IMP的，在runtime的时候，函数实现已经被交换了。调用`-setTag:`会调用你实现的`-xxx_setTag:`，而在 `-xxx_setTag:`里调用`-xxx_setTag:`实际上调用的是原来的`-setTag:`。
+
+```
+//UIControl+XXXExtension.m
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        
+        //1
+        SEL originalSelector = @selector(setTag:);
+        SEL swizzledSelector = @selector(xxx_setTag:);
+        //2
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        // When swizzling a class method, use the following:
+        // Class class = object_getClass((id)self);
+        // ...
+        // Method originalMethod = class_getClassMethod(class, originalSelector);
+        // Method swizzledMethod = class_getClassMethod(class, swizzledSelector);
+
+        //3
+        BOOL didAddMethod = class_addMethod(class,
+                                            originalSelector,
+                                            method_getImplementation(swizzledMethod),
+                                            method_getTypeEncoding(swizzledMethod));
+
+        if (didAddMethod) {
+        //4
+            class_replaceMethod(class,
+                                swizzledSelector,
+                                method_getImplementation(originalMethod),
+                                method_getTypeEncoding(originalMethod));
+        } else {
+        //5
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+```
+
+1. 拿到要交换的两个方法名SEL
+2. 通过方法名SEL，拿到方法对象Method
+3. 在交换方法前，先调用了`class_addMethod`。是因为要保证所交换的原方法是本类的方法，不是父类的方法。`class_addMethod`会覆盖父类的方法实现，但是不会替换本类已经有的方法实现。所以先做一层`class_addMethod`保证了本类本身有原方法的实现。
+4. 如果本类没有相应的原方法实现，`class_addMethod`会成功添加一个原方法，实现IMP设置为新的实现。然后通过`class_replaceMethod`在新方法名义下设置原方法的实现。
+5. 如果本类有相应的原方法实现，`method_exchangeImplementations `交换两个方法的实现。
+
+通常我们方法混写是想要在应用程序的整个生命周期中有效，所以把method swizzling的代码放在`+load`的dispatch once中，是为了保证它的执行是线程安全的，并且只执行一次。[了解更多关于+load](https://github.com/liuyanhongwl/ios_common/blob/master/files/load_initialize.md)
+
+然后我们来调用一下混写后的方法：
+
+```
+ UIControl *ctrl = [[UIControl alloc] init];
+ ctrl.tag = 10;
+    
+ UIView *view = [[UIView alloc] init];
+ view.tag = 100;
+```
+
+控制台输出：
+
+```
+-[UIControl(XXXExtension) xxx_setTag:]  tag=10
+```
+
+从输出中，可以知道新方法只应用于UIControl的对象，并不影响其父类UIView的对象。这就因为我们只交换了UIControl类的方法，明显UIControl本身没有`-setTag:`方法，所以会通过`class_addMethod`添加一个，所以不影响其父类UIView。
+
+#### Method Swizzling 注意事项
+
+- Method swizzling is not atomic
+
+很明显方法混写的代码要完整的执行程序才会正常执行，正如我们在`+load`方法中执行dispatch once。
+
+- Changes behavior of un-owned code
+
+混写的方法不止对一个实例有效，是对目标类的所有实例。我们改变了目标类，所以swizzling是很重要的事，要十分小心。
+
+- Possible naming conflicts
+
+命名冲突贯穿整个Cocoa的问题，我们常常在类名和类别方法名前加上前缀，所以我们也在新方法的前面加前缀，就像前面代码里的`-xxx_setTag:`。但如果`-xxx_setTag:`在别处也定义了怎么办？这个问题不仅仅存在于swizzling，这我们可以用别的变通的方法：
+
+直接用新的 IMP 取代原 IMP ，而不是替换。只需要有全局的函数指针指向原 IMP 就可以。
+
+```
+static void (*gOriginalSetTagIMP)(id self, SEL _cmd, NSInteger tag);
+
+static void xxxSetTag(id self, SEL _cmd, NSInteger tag) {
+    // do custom work
+    NSLog(@"%s  tag=%ld", __FUNCTION__, tag);
+    gOriginalSetTagIMP(self, _cmd, tag);
+}
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{    
+     
+        Method originalMethod = class_getInstanceMethod(self, @selector(setTag:));
+        gOriginalSetTagIMP = (void *)method_getImplementation(originalMethod);
+        
+        if(!class_addMethod(self, @selector(setTag:), (IMP)xxxSetTag, method_getTypeEncoding(originalMethod))) {
+            method_setImplementation(originalMethod, (IMP)xxxSetTag);
+        }
+    });
+}
+```
+
+注意这里的自定义实现`xxxSetTag`里不能再调用`xxxSetTag`本身了，不然就真的递归了。因为这里调用的是函数，直接调用，不走runtime的消息传递了。
+
+或者用OC提供的`imp_implementationWithBlock `，直接用block生成对应的实现IMP：
+
+```
+Method originalMethod = class_getInstanceMethod(self, @selector(setTag:));
+IMP originalImp = method_getImplementation(originalMethod);
+
+IMP swizzledImp = imp_implementationWithBlock(^(id target, SEL cmd, NSInteger tag){
+	NSLog(@"%s  tag=%ld", __FUNCTION__, tag);
+	void (*func)(id, SEL, NSInteger) = (void(*)(id, SEL, NSInteger))originalImp;
+	func(target, cmd, tag);
+});
+        
+if(!class_addMethod(self, @selector(setTag:), (IMP)swizzledImp, method_getTypeEncoding(originalMethod))) {
+	method_setImplementation(originalMethod, (IMP)swizzledImp);
+}
+```
+
+- Swizzling changes the method's arguments
+
+- The order of swizzles matters
+
+- Difficult to understand (looks recursive)
+
+- Difficult to debug
 
 
 ### 参考
