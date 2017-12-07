@@ -14,7 +14,7 @@
 
 然后选择你的主程序的。
 
-除此之外，还有特殊情况，比如 UNNotificationServiceExtension 的调试，因为该代码完全处于后台情况（UNNotificationContentExtension可以由通知打开触发），像上面那种方式调试还是不会走断点，这就需要`Debug -> Attach to process by pID or name`：
+除此之外，还有特殊情况，比如 UNNotificationServiceExtension 的调试，因为该代码完全处于后台情况（不像UNNotificationContentExtension可以由通知界面打开触发），像上面那种方式调试还是不会走断点，这就需要`Debug -> Attach to process by pID or name`：
 
 <img src="../images/App-Extension-Tips/extension-debug-2-1@2x.png" width=300 />
 
