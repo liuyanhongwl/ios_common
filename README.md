@@ -62,9 +62,9 @@
  * [App Extension Tips](files/App-Extension-Tips.md)
  * [App Extension](files/App-Extension.md)
  * [Today Extension](files/ios-today-extension.md)
- * [iMessage Developer](files/iMessage-Developer.md)
  * [iOS10推送通知进阶(Notification Extension）](files/ios10_usernotification_extension.md)
  * [Core Data](files/core_data.md)
+ * [iMessage Developer](files/iMessage-Developer.md)
 
 
 #### Tips
