@@ -56,7 +56,7 @@ method_setImplementation(m2, imp1);
 
 ```
 - (void)xxx_setTag:(NSInteger)tag {
-    NSLog(@"%s  tag=%ld", __FUNCTION__, tag);
+	NSLog(@"%s  %@  tag=%ld", __FUNCTION__, NSStringFromSelector(_cmd), tag);
     return [self xxx_setTag:tag];
 }
 ```
@@ -132,7 +132,7 @@ method_setImplementation(m2, imp1);
 
 - Method swizzling is not atomic
 
-很明显方法混写的代码要完整的执行程序才会正常执行，正如我们在`+load`方法中执行dispatch once。
+很明显方法混写的代码要完整的执行，程序才会正常执行，正如我们在`+load`方法中执行dispatch once。
 
 - Changes behavior of un-owned code
 
@@ -174,13 +174,14 @@ static void xxxSetTag(id self, SEL _cmd, NSInteger tag) {
 ```
 Method originalMethod = class_getInstanceMethod(self, @selector(setTag:));
 IMP originalImp = method_getImplementation(originalMethod);
-
-IMP swizzledImp = imp_implementationWithBlock(^(id target, SEL cmd, NSInteger tag){
-	NSLog(@"%s  tag=%ld", __FUNCTION__, tag);
+SEL originalSel = method_getName(originalMethod);
+    
+IMP swizzledImp = imp_implementationWithBlock(^(id target, NSInteger tag){
+	NSLog(@"%s   tag=%ld", __FUNCTION__, tag);
 	void (*func)(id, SEL, NSInteger) = (void(*)(id, SEL, NSInteger))originalImp;
-	func(target, cmd, tag);
+	func(target, originalSel, tag);
 });
-        
+    
 if(!class_addMethod(self, @selector(setTag:), (IMP)swizzledImp, method_getTypeEncoding(originalMethod))) {
 	method_setImplementation(originalMethod, (IMP)swizzledImp);
 }
@@ -188,9 +189,41 @@ if(!class_addMethod(self, @selector(setTag:), (IMP)swizzledImp, method_getTypeEn
 
 - Swizzling changes the method's arguments
 
+method swizzling 后的方法，想正常调用的话，将是个问题。
+
+比如如果想直接调用`xxx_setTag:`方法：
+
+```
+[self xxx_setTag:12];
+```
+
+runtime 的做法是：
+
+```
+objc_msgSend(self, @selector(xxx_setTag:), 12);  
+```
+
+runtime去寻找`xxx_setTag:`的方法实现, `_cmd`参数为`xxx_setTag:` ，但是事实上runtime找到的方法实现是原始的`setTag:`的。
+
+解决方法：使用全局的函数指针IMP。
+
 - The order of swizzles matters
+
+多个swizzle方法的执行顺序也需要注意。
+
+我们先来说正确的顺序：
+
+
+
 
 - Difficult to understand (looks recursive)
 
+新方法的实现看起来像递归，但是看看上面已经给出的 swizzling 封装方法, 使用起来就很易读懂。
+
+解决方法：使用全局的函数指针IMP。
+
 - Difficult to debug
 
+使用`NSStringFromSelector(_cmd)`打印出的方法名调用的方法名，`__FUNCTION__`打印出的方法名是真正实现的方法名。这块可能会混乱，毕竟交换了方法，就像A的实现是B，B的实现是A，不是平常看到的代码那么直接，这块需要思考，一不小心就会忘了。
+
+解决方法：充分的文档，即使只有你一个人开发。
