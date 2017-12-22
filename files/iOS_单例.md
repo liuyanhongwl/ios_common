@@ -279,4 +279,5 @@ static id instance = nil;   \
 
 - [iOS中的单例你用对了么？](http://www.cocoachina.com/ios/20160713/17017.html)
 - [iOS单例详解](http://www.jianshu.com/p/5226bc8ed784)
+- [单例模式虽好但请不要滥用](http://www.nowamagic.net/librarys/veda/detail/921)
 - [NSObject的load与initialize方法](http://blog.csdn.net/u013378438/article/details/52060925)

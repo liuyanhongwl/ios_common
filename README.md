@@ -10,7 +10,6 @@
  * [复制对象](files/复制对象.md)
  * [instancetype & id](files/instancetype-id.md)
  * [+load & +initialize](files/load_initialize.md)
- * [Runtime](files/runtime.md)
  * [iOS多线程](files/iOS_多线程.md)
  * [Runtime 1 简介,对象、类的结构,消息传递](files/runtime_1.md)
  * [Runtime 2 动态方法解析和转发](files/runtime_2.md)
