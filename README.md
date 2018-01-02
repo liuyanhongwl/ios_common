@@ -133,3 +133,7 @@
  * [技术查询网站](files/skill-search.md)
  * [自动代理的pac文件](otherfiles/autoproxy/)
  
+ 
+#### 书籍
+ * [《Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方法》]()
+ * [《iOS开发进阶》 唐巧]()
