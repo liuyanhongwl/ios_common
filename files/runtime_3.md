@@ -1,6 +1,6 @@
 ## Runtime 3 Method Swizzling
 
-### Method Swizzling
+## Method Swizzling
 
 其实runtime的概念、特性已经讲完了。现在来说一下runtime很强大的一个黑色技能：Method Swizzling。
 
@@ -24,7 +24,7 @@ Method Swizzling 利用 Runtime 特性把一个方法的实现与另一个方法
 
 这些方法归根结底，都是偷换了method的IMP。
 
-#### class_replaceMethod
+### class_replaceMethod
 
 ```
 class_replaceMethod(Class _Nullable cls, SEL _Nonnull name, IMP _Nonnull imp, 
@@ -33,11 +33,11 @@ class_replaceMethod(Class _Nullable cls, SEL _Nonnull name, IMP _Nonnull imp,
 
 在文档中详细说明了，它有两种不同的行为。当类中没有想替换的原方法时，该方法会调用 `class_addMethod` 来为该类增加一个新方法。也因此它需要在调用时传入types参数，而`method_exchangeImplementations`和`method_setImplementation`却不需要。
 
-#### method_setImplementation
+### method_setImplementation
 
 最简单，仅仅是给一个方法设置其实现方式。
 
-#### method_exchangeImplementations
+### method_exchangeImplementations
 
 顾名思义，是交换两个方法的实现，等同于调用两次`method_setImplementation `：
 
@@ -48,7 +48,7 @@ method_setImplementation(m1, imp2);
 method_setImplementation(m2, imp1);
 ```
 
-#### Method Swizzling 的应用
+### Method Swizzling 的应用
 
 有时候我们想对已有类的已有实现增加一些额外处理，这时候我们可以在已有类的分类中做Method Swizzling。
 
@@ -128,17 +128,25 @@ method_setImplementation(m2, imp1);
 
 从输出中，可以知道新方法只应用于UIControl的对象，并不影响其父类UIView的对象。这就因为我们只交换了UIControl类的方法，明显UIControl本身没有`-setTag:`方法，所以会通过`class_addMethod`添加一个，所以不影响其父类UIView。
 
-#### Method Swizzling 注意事项
+### Method Swizzling 注意事项
 
 - Method swizzling is not atomic
+- Changes behavior of un-owned code
+- Possible naming conflicts
+- Swizzling changes the method's arguments
+- The order of swizzles matters
+- Difficult to understand (looks recursive)
+- Difficult to debug
+
+#### - Method swizzling is not atomic
 
 很明显方法混写的代码要完整的执行，程序才会正常执行，正如我们在`+load`方法中执行dispatch once。
 
-- Changes behavior of un-owned code
+#### - Changes behavior of un-owned code
 
 混写的方法不止对一个实例有效，是对目标类的所有实例。我们改变了目标类，所以swizzling是很重要的事，要十分小心。
 
-- Possible naming conflicts
+#### - Possible naming conflicts
 
 命名冲突贯穿整个Cocoa的问题，我们常常在类名和类别方法名前加上前缀，所以我们也在新方法的前面加前缀，就像前面代码里的`-xxx_setTag:`。但如果`-xxx_setTag:`在别处也定义了怎么办？这个问题不仅仅存在于swizzling，这我们可以用别的变通的方法：
 
@@ -187,7 +195,7 @@ if(!class_addMethod(self, @selector(setTag:), (IMP)swizzledImp, method_getTypeEn
 }
 ```
 
-- Swizzling changes the method's arguments
+#### - Swizzling changes the method's arguments
 
 method swizzling 后的方法，想正常调用的话，将是个问题。
 
@@ -207,22 +215,98 @@ runtime去寻找`xxx_setTag:`的方法实现, `_cmd`参数为`xxx_setTag:` ，�
 
 解决方法：使用全局的函数指针IMP。
 
-- The order of swizzles matters
+#### - The order of swizzles matters
 
-多个swizzle方法的执行顺序也需要注意。
+多个swizzle方法的执行顺序也需要注意。那么应该是什么顺序呢，从父类->子类的顺序交换，还是从父类->子类的顺序？
 
-我们先来说正确的顺序：
+举个例子，在UIView、UIControl、UIButton的分类里面分别自定义如下代码，准备与原来的`-setTag:`方法进行交换：
+
+```
+//  UIView+LYHExtension.m
+- (void)viewSetTag:(NSInteger)tag {
+    NSLog(@"%s   cmd=%@  tag=%ld", __FUNCTION__, NSStringFromSelector(_cmd), tag);
+    return [self viewSetTag:tag];
+}
+
+//  UIControl+LYHExtension.m
+- (void)controlSetTag:(NSInteger)tag {
+    NSLog(@"%s   cmd=%@  tag=%ld", __FUNCTION__, NSStringFromSelector(_cmd), tag);
+    return [self controlSetTag:tag];
+}
+
+//  UIButton+LYHExtension.m
+- (void)buttonSetTag:(NSInteger)tag {
+    NSLog(@"%s   cmd=%@  tag=%ld", __FUNCTION__, NSStringFromSelector(_cmd), tag);
+    return [self buttonSetTag:tag];
+}
+```
+
+从父类->子类的顺序进行method swizzle：
+
+```
+[UIView swizzle:@selector(setTag:) withSelector:@selector(viewSetTag:)];
+[UIControl swizzle:@selector(setTag:) withSelector:@selector(controlSetTag:)];
+[UIButton swizzle:@selector(setTag:) withSelector:@selector(buttonSetTag:)];
+```
+
+这里新写了一个方法`-swizzle: withSelector:`，实现跟上面`+load`方法里的方法交换一样。
+
+**交换前：**
+
+<img src="../images/runtime/交换前.png"/>
+
+**按父类->子类的顺序交换后：**
+
+<img src="../images/runtime/交换后_父类子类顺序.png"/>
+
+创建一个UIButton的实例，然后调用一下`-setTag:`，因为在自定义的方法里的实现是用`NSLog`打印当前方法信息，以及调用原来的方法。那就看一下控制台：
+
+```
+-[UIButton(XXXExtension) buttonSetTag:]   cmd=setTag:  tag=100
+-[UIControl(XXXExtension) controlSetTag:]   cmd=buttonSetTag:  tag=100
+-[UIView(XXXExtension) viewSetTag:]   cmd=controlSetTag:  tag=100
+```
+
+用图表示更清晰，**按父类->子类的顺序交换后，调用子类的`-setTag:`方法：**
+
+<img src="../images/runtime/交换后_父类子类顺序_调用.png"/>
+
+很明显，这种从父类->子类的交换顺序，能正常实现我们想要的流程，也就是子类中拿到的方法，是父类已经swizzle后的代码。
+
+反过来，子类->父类的顺序进行method swizzle：
+
+**按子类->父类的顺序交换后：**
+
+<img src="../images/runtime/交换后_子类父类顺序.png"/>
+
+很明显，每层的子类（UIButton、UIControl）都是直接跟拥有原始方法的父类（UIView）直接进行交换，不管是否跨层级。
+
+依然创建一个UIButton的实例，调用一下`-setTag:`，控制台：
+
+```
+-[UIButton(XXXExtension) buttonSetTag:]   cmd=setTag:  tag=100
+```
+
+控制台只打印了UIButton的自定义方法，没有继承父类UIControl和祖父类UIView的自定义方法。
+
+**按子类->父类的顺序交换后，调用子类的`-setTag:`方法：**
+
+<img src="../images/runtime/交换后_子类父类顺序_调用.png"/>
 
 
 
 
-- Difficult to understand (looks recursive)
+>多个有继承关系的类的对象swizzle时，先从父对象开始。 这样才能保证子类方法拿到父类中的被swizzle的实现。在+(void)load中swizzle不会出错，就是因为load类方法会默认从父类开始调用。
+
+
+
+#### - Difficult to understand (looks recursive)
 
 新方法的实现看起来像递归，但是看看上面已经给出的 swizzling 封装方法, 使用起来就很易读懂。
 
 解决方法：使用全局的函数指针IMP。
 
-- Difficult to debug
+#### - Difficult to debug
 
 使用`NSStringFromSelector(_cmd)`打印出的方法名调用的方法名，`__FUNCTION__`打印出的方法名是真正实现的方法名。这块可能会混乱，毕竟交换了方法，就像A的实现是B，B的实现是A，不是平常看到的代码那么直接，这块需要思考，一不小心就会忘了。
 

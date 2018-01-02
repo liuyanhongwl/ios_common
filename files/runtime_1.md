@@ -23,9 +23,7 @@
 - - 消息转发与多继承
 - - 消息转发与代理对象
 
-**持续更新中...**
-
-runtime 第三部分
+[runtime 第三部分](https://www.jianshu.com/p/944c06b316aa)
 
 - Method Swizzling
 - - class_replaceMethod
@@ -33,6 +31,9 @@ runtime 第三部分
 - - method_exchangeImplementations
 - - Method Swizzling 的应用
 - - Method Swizzling 注意事项
+
+**持续更新中...**
+
 
 ### 一. runtime 简介
 
