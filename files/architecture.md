@@ -2,8 +2,8 @@
 
 ### MVC
 
-<img src="../images/Architecture/mvc.JPG" width=500/>
+<img src="../images/architecture/mvc.JPG" width=500/>
 
 ### VIPER
 
-<img src="../images/Architecture/viper_full.png" />
+<img src="../images/architecture/viper_full.png" />
