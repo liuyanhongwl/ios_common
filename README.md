@@ -105,6 +105,7 @@
  * [链式编程思想](files/chained.md)
  * [ReactiveCocoa框架](files/reactivecocoa.md)
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
+ * [架构设计](files/architecture.md)
 
 
 #### iOS Developer Library
