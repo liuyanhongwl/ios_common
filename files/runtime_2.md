@@ -50,7 +50,7 @@
 
 如果想要对消息进行处理，就可以在这一步操作消息的参数和返回值，还可以让多个对象响应，甚至把消息吞掉。
 
-runtime system会调用`-methodSignatureForSelector:`方法，尝试获得一个方法签名。如果获取不到，则直接调用doesNotRecognizeSelector抛出异常。如果能获取，则返回非nil：runtime system会创建一个 NSlnvocation 并传给`-forwardInvocation:`。
+runtime system会调用`-methodSignatureForSelector:`方法，尝试获得一个方法签名。如果获取不到，则直接调用`-doesNotRecognizeSelector`抛出异常。如果能获取，则返回非nil：runtime system会创建一个 NSlnvocation 并传给`-forwardInvocation:`。
 
 也就是说如果本类没有能响应的方法，`-methodSignatureForSelector:`方法本来应该返回nil，需要重写该方法想办法返回需要的签名，好让runtime system可以调用`-forwardInvocation:`。重写`-forwardInvocation:`，来对消息进行处理（交给其它对象处理、处理消息参数等）。
 

@@ -14,6 +14,7 @@
  * [Runtime 1 简介,对象、类的结构,消息传递](files/runtime_1.md)
  * [Runtime 2 动态方法解析和转发](files/runtime_2.md)
  * [Runtime 3 Method Swizzling](files/runtime_3.md)
+ * [Runtime 4 isa swizzling](files/runtime_4.md)
  * [Block](files/block.md)
  * [事件的传递](files/事件的传递.md)
  * [iOS open other app](files/ios_open_other_app.md)
