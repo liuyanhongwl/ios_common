@@ -92,12 +92,46 @@ isa指针|
 父类的实例变量|
 类的实例变量|
 
-//// 加入LLDB 对象结构体输出
+例如：
+
+```
+@interface Father: NSObject{
+    int _father;
+}
+@end
+@implementation Father
+@end
+
+@interface Child: Father {
+    int _child;
+}
+@end
+@implementation Child
+@end
+
+int main(int argc, char * argv[]) {
+	 Child *child = [[Child alloc] init];
+    return 0;
+}
+```
+
+然后在`return 0`的一行打断点，运行程序在断点停止时，在控制台输入`p *child`，可以看到如下输出：
+
+```
+(lldb) p *child
+(Child) $0 = {
+  Father = (_father = 0)
+  _child = 0
+}
+```
+
+这就是child对象的结构，从下到上分别是自己到根类的实例变量。
 
 **类（objc_class）**主要组成：isa指向元类（Meta Class），`super_class `指向父类、`objc_method_list `存储实例方法。类里面和对象一样也有isa指针，说明类也是个对象，类是元类的实例。
 
 **元类（objc_class）**，在类对象里的isa指针也指向一个`objc_class `类型的结构体，就是元类对象，结构和类对象一样，但是`objc_method_list `存储的是类方法。
 
+![objc system](../images/runtime/objc_system.png)
 
 ### 三、消息传递（Messaging）
 
