@@ -103,6 +103,7 @@
 #### 开发原则
  * [指数退避](files/指数退避.md)
  * [设计模式--《HEAD FIRST》](files/pattern-head-first.md)   
+ * [设计原则](files/设计原则.md)   
  * [链式编程思想](files/chained.md)
  * [ReactiveCocoa框架](files/reactivecocoa.md)
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
