@@ -102,8 +102,8 @@ then方法会跳过error事件，被接下来的subscribeNext:error: 方法的er
 
 关于ReactiveCocoa基本功，BenBeng的文章写得很好，图文并茂得描述了一个小项目的RAC开发流程：
 
-- [ReactiveCocoa入门教程——第一部分](http://benbeng.leanote.com/post/ReactiveCocoaTutorial-part1) 
-- [ReactiveCocoa入门教程——第二部分](http://benbeng.leanote.com/post/ReactiveCocoaTutorial-part2)
+- [ReactiveCocoa入门教程——第一部分](http://www.cocoachina.com/ios/20150123/10994.html) 
+- [ReactiveCocoa入门教程——第二部分](http://www.cocoachina.com/ios/20160211/15020.html)
 
 关于ReactiveCocoa RACCommamd
 

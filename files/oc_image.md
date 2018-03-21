@@ -1,4 +1,4 @@
-### OC Image
+### Image
 
 #### iOS7以上 设置UIImage的渲染模式
 

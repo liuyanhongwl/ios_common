@@ -38,7 +38,7 @@
  * [UITableView性能优化](files/uitableview性能优化.md)
  * [UITableView各种问题](files/uitableview.md)
  * [UITableView利用AutoLayout自动调整高度](files/uitableviewcell-autolayout.md)
- * [OC(Image)](files/oc_image.md)
+ * [Image](files/oc_image.md)
  * [计算UILabel的高度](files/uilabel-height.md)
  * [UIScrollView](files/ios_uiscrollview.md)
  * [AutoLayout 约束的优先级](files/AutoLayout-Constraint-Priority.md)
