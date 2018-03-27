@@ -4,7 +4,7 @@
 
 对于 runtime，看了很多的文章， 开发过程中也零零碎碎的用到过，感觉都不甚全面。反反复复研究了几次，决定写下来。对于初学者，感觉 runtime 很高深，不敢涉足；对于经常使用 runtime 的人来说，觉得 runtime 就那么点东西，不足为奇。其实在我反复研究它的过程中，每次都有收获，因为它的原理不难，但是涉及很多，它贯穿这门语言，却刀锋尖利。
 
-[runtime 第一部分](http://www.jianshu.com/p/c546d3e7858d)
+[Objective-C Runtime（一）](http://www.jianshu.com/p/c546d3e7858d)
 
 - 简介
 - 对象、类的结构
@@ -14,7 +14,7 @@
 - - objc_method
 - - objc_msgSend
 
-[runtime 第二部分](http://www.jianshu.com/p/fdf6d370c84c)
+[Objective-C Runtime（二）](http://www.jianshu.com/p/fdf6d370c84c)
 
 - 动态方法解析和转发
 - - 动态方法解析
@@ -23,7 +23,7 @@
 - - 消息转发与多继承
 - - 消息转发与代理对象
 
-[runtime 第三部分](https://www.jianshu.com/p/944c06b316aa)
+[Objective-C Runtime（三）](https://www.jianshu.com/p/944c06b316aa)
 
 - Method Swizzling
 - - class_replaceMethod
@@ -31,6 +31,13 @@
 - - method_exchangeImplementations
 - - Method Swizzling 的应用
 - - Method Swizzling 注意事项
+
+[Objective-C Runtime（四）](https://www.jianshu.com/p/725ffc4cbc92)
+
+- isa swizzling 
+- - 介绍
+- - 应用之KVO
+- - 注意
 
 **持续更新中...**
 

@@ -1,6 +1,5 @@
 ## Runtime 3 Method Swizzling
 
-## Method Swizzling
 
 其实runtime的概念、特性已经讲完了。现在来说一下runtime很强大的一个黑色技能：Method Swizzling。
 

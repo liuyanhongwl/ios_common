@@ -3,10 +3,10 @@
 
 ### 介绍
 
-对比上一篇 [Method Swizzling](https://www.jianshu.com/p/944c06b316aa)， isa swizzling 顾名思义就是把对象的 isa 指针进行替换。
+对比上一篇 [Runtime 3 Method Swizzling](https://www.jianshu.com/p/944c06b316aa)， isa swizzling 顾名思义就是把对象的 isa 指针进行替换。
 
 
-根据[第一篇](http://www.jianshu.com/p/c546d3e7858d)，我们知道对象都有 isa 指针指向它的类，消息传递时也通过isa指针找到类中所对应的方法。更改对象的 isa 指针，不仅改变了它所属于的类型，也更改了它的行为（方法）。
+根据第一篇 [Runtime 1 简介,对象、类的结构,消息传递](http://www.jianshu.com/p/c546d3e7858d)，我们知道对象都有 isa 指针指向它的类，消息传递时也通过isa指针找到类中所对应的方法。更改对象的 isa 指针，不仅改变了它所属于的类型，也更改了它的行为（方法）。
 
 举个例子：
 
@@ -66,7 +66,7 @@ KVO在调用存取方法之前总是调用 willChangeValueForKey: ，之后总�
 
 <img src="../images/runtime/isa_swizzling_kvo.png"/>
 
-然而 KVO 在实现中使用了 isa-swizzling 的确不是很容易发现：Apple 还重写了`-class`方法并返回原来的类。企图欺骗我们：这个类没有变，就是原本那个类。。。
+然而 KVO 在实现中使用了 isa-swizzling 的确不是很容易发现：Apple 还重写了`-class`方法并返回原来的类。企图欺骗我们：这个类没有变，就是原本那个类。。。如下：
 
 ```
 Father *father = [[Father alloc] init];
