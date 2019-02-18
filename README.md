@@ -107,7 +107,7 @@
  * [ReactiveCocoa框架](files/reactivecocoa.md)
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
  * [架构设计](files/architecture.md)
-
+ * [更新缓存的设计模式](files/更新缓存的设计模式.md)
 
 #### iOS Developer Library
  * [iOS9新增功能](files/ios_new_ios9.md)
@@ -128,7 +128,6 @@
  * [使用Git](files/mac_git_terminal.md) 
  * [通信的基础知识](files/通信的基础知识.md)
  * [vimtutor](files/vimtutor.md)   
- * [更新缓存的设计模式](files/更新缓存的设计模式.md)
  
  
 #### 其他
