@@ -38,20 +38,20 @@
  * [UITableView性能优化](files/uitableview性能优化.md)
  * [UITableView各种问题](files/uitableview.md)
  * [UITableView利用AutoLayout自动调整高度](files/uitableviewcell-autolayout.md)
- * [OC(Image)](files/oc_image.md)
+ * [Image](files/oc_image.md)
  * [计算UILabel的高度](files/uilabel-height.md)
  * [UIScrollView](files/ios_uiscrollview.md)
  * [AutoLayout 约束的优先级](files/AutoLayout-Constraint-Priority.md)
  * [AutoLayout Size](files/AutoLayout-Size.md)
  * [UIView的Margins](files/UIView-Margins.md)
  * [UINavigationController](files/uinavigationcontroller.md)
- * [有关UIView绘制](files/ios-uiview-layout.md)
+ * [有关UIView绘制布局](files/ios-uiview-layout.md)
  * [3D Touch](files/3D-Touch.md)
 
 
 #### Graphics and Games
  * [Core Animation](files/core_animation.md)
-  
+ * [图形界面](files/图形界面.md)  
  
 #### Media 
  * [Photos.framework](files/oc-photos-framework.md)
@@ -103,6 +103,7 @@
 #### 开发原则
  * [指数退避](files/指数退避.md)
  * [设计模式--《HEAD FIRST》](files/pattern-head-first.md)   
+ * [设计原则](files/设计原则.md)   
  * [链式编程思想](files/chained.md)
  * [ReactiveCocoa框架](files/reactivecocoa.md)
  * [ReactiveCocoa + MVVM](files/reactivecocoa_mvvm.md)
