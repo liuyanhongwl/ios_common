@@ -8,6 +8,7 @@
  * [ios代码实践总结](files/ios代码实践总结.md)
  * [内存管理](files/内存管理.md)
  * [复制对象](files/复制对象.md)
+ * [内存分配](files/内存分配.md)
  * [instancetype & id](files/instancetype-id.md)
  * [+load & +initialize](files/load_initialize.md)
  * [iOS多线程](files/iOS_多线程.md)
